@@ -2,8 +2,16 @@ Package: VarRedOpt
 Type: Package
 Title: A Framework for Variance Reduction
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
+Authors@R: c(person(given = "Onur",
+           family = "Boyar",
+           role = c("aut", "cre"),
+           email = "boyaronur@gmail.com"),
+           person(given = "Wolfgang",
+           family = "Hörmann",
+           role = c("aut", "cre"),
+           email = "hormannw@boun.edu.tr")
+   )
+Maintainer: The package maintainer <boyaronur@gmail.com>
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
 License: What license is it under?
