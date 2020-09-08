@@ -1,5 +1,17 @@
-sim.InnerCV <- function(zm,
-                        q.cv = myq,...){
+#' @title Function to apply Inner Control Variates Algorithm.
+#'
+#' @description Given matrix input with d dimension, this function aims to reduce the variance by applying Inner Control Variates algorithm. It uses input columns and their squares as inner control variates and applies feature selection for these control variates.
+#
+#'
+#' @param zm A matrix with dimension d and length n.
+#' @param q.cv q function that sim.InnerCV function gets target vectors to apply variance reduction.
+#'
+#' @return Updates Y value which stored in list 'results' and returns the list 'results' with updated Y value.
+#'
+#' @examples  simulate.outer(zm, q.outer = sim.InnerCV, q.cv = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)
+#'
+
+sim.InnerCV <- function(zm, q.cv = myq,...){
   # zm ... z matrix
   # Y ... estimated results of the simulation.
   # this function takes zm and Y as an input and

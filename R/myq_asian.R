@@ -33,14 +33,3 @@ myq_asian <- function(zm,K=100,ti=(1:3)/12,r=0.05,sigma=0.1,S0=100){
   returning_list = list(Y, last_price, E_z, prodSt)
   return(returning_list)
 }
-
-
-myq_euclidean <- function(zm,point=c(1,2,1)){
-  # returns Euclidean distance of iid N(0,1) vector to "point"
-  d <- length(point)
-  sumDist2 <- 0
-  for(i in 1:d) sumDist2 <- sumDist2 + (point[i]-zm[,i])^2
-
-  returning_list = list(sqrt(sqrt(sumDist2)))
-  return(returning_list)
-}

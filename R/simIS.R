@@ -1,3 +1,19 @@
+#' @title Function to apply Importance Sampling Algorithm.
+#'
+#' @description Given matrix input with d dimension, this function applies Importance Sampling algorithm and it chooses the best value of the mean value of the importance density automatically. Performs better in rare event simulation.
+#
+#'
+#' @param zm A matrix with dimension d and length n.
+#' @param use_pilot_study TRUE if user wants to choose muis parameter automatically.
+#' @param muis mean parameter of the importance density.
+#' @param sis standard deviation parameter of the importance density.
+#' @param q.is q function that sim.IS function gets target vectors to apply variance reduction.
+#'
+#' @return q.is returns simulation results. it stores 4 elements sim.IS adds new elements to results and returns it.
+#'
+#' @examples  simulate.outer(zm, q.outer = sim.IS, q.is = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)
+#'
+
 sim.IS <- function(zm, use_pilot_study=TRUE, muis=1, sis=1,q.is=myq,...){
   # calculates is density and finds weights
   # returns calculated weights in a list

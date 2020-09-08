@@ -1,3 +1,17 @@
+#' @title An Outer Control Variate function for Asian Call Option.
+#'
+#' @description # Applies geometric average asian call outer control varites algorithm to the simulation. Gets expected value for the control variate using BS_Asian_geom function if IS algorithm is within the framework, the length of the q.ga will be different. Checks if IS algorithm is within the framework and applies IS weight accordingly.
+#
+#'
+#' @param zm A matrix with dimension d and length n.
+#' @param q.ga q function that sim.GeometricAvg function gets target vectors to apply variance reduction.
+#'
+#' @return Updates Y value which stored in list 'results' and returns the list 'results' with updated Y value.
+#'
+#' @examples  simulate.outer(zm, q.outer = sim.GeometricAvg, q.ga = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)
+#'
+
+
 sim.GeometricAvg <- function(zm, q.ga=myq,...){
   # applies geometric average asian call outer control varite to the simulation.
   # gets expected value for the control variate using BS_Asian_geom function

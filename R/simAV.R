@@ -1,3 +1,17 @@
+#' @title Function to apply Antithetic Variates Algorithm.
+#'
+#' @description Given matrix input with d dimension, this function runs simulation two times using positive and negitve signed versions of the input matrix.
+#
+#'
+#' @param zm A matrix with dimension d and length n.
+#' @param q.av q function that sim.AV function gets target vectors to apply variance reduction.
+#'
+#' @return y target vector with theoretically lower variance with the same expected value as the initial y vector.
+#'
+#' @examples  simulate.outer(zm, q.outer = sim.AV, q.av = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)
+#'
+
+
 sim.AV <- function(zm, q.av = myq, ...){
   # Applies antithetic variates
   # q.av is expected to return a list.
