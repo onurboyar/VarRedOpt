@@ -59,8 +59,8 @@ in the following way.
     library(VarRedOpt)
     simulate.outer(n=1e5, d=3, q.outer = myq_asian,
                    K = 100, ti=(1:3)/12, r = 0.03, sigma = 0.3, S0 = 100)
-    #>        est         SE 
-    #> 4.54300000 0.04283238
+    #>    Estimation StandartError 
+    #>    4.54300000    0.04283238
 
 There are a lot of different parameters to be used in different function
 in our framework. In order to handle different parameters and create a
@@ -95,8 +95,8 @@ our framework. We will give q.av = myq\_asian. The function now becomes
 
     simulate.outer(n=1e5, d=3, q.outer = sim.AV, 
                    q.av = myq_asian,K = 100, ti = (1:3)/12, r = 0.03, sigma = 0.3, S0 = 100)
-    #>        est         SE 
-    #> 4.55000000 0.02285073
+    #>    Estimation StandartError 
+    #>    4.55000000    0.02285073
 
 ### Inner Control Variates
 
@@ -110,8 +110,8 @@ Control Variates, the following function can be used.
 
     simulate.outer(n=1e5, d=3, q.outer = sim.InnerCV, 
                    q.cv = myq_asian,K = 100, ti =(1:3)/12, r = 0.03, sigma = 0.3, S0 = 100)
-    #>        est         SE 
-    #> 4.53800000 0.01698056
+    #>    Estimation StandartError 
+    #>    4.53800000    0.01698056
 
 ### Outer Control Variates
 
@@ -133,8 +133,8 @@ solution is known.
 
     simulate.outer(n=1e5, d=3, q.outer = sim.AV, q.av = sim.GeometricAvg, 
                    q.ga = myq_asian,K = 100, ti = (1:3)/12, r = 0.03, sigma=0.3, S0=100)
-    #>          est           SE 
-    #> 4.5400000000 0.0006227557
+    #>    Estimation StandartError 
+    #>  4.5400000000  0.0006227557
 
 Outer Control Variates function is the same as Inner Control Variates
 function in several ways. It has the same control for returning list
@@ -171,16 +171,16 @@ muis value by conducting a pilot study inside the function.
 
     simulate.outer(1e6,d=3,q.outer=myq_asian,K=120,
                    ti=(1:3)/12,r=0.03,sigma=0.3,S0=100)
-    #>         est          SE 
-    #> 0.255000000 0.003160006
+    #>    Estimation StandartError 
+    #>   0.255000000   0.003160006
 
 Now, let’s add Inner Control Variates and obtain a little variance
 reduction.
 
     simulate.outer(n=1e6,d=3,q.outer=sim.InnerCV,
                    q.cv=myq_asian,K=120,ti=(1:3)/12,r=0.03,sigma=0.3,S0=100)
-    #>        est         SE 
-    #> 0.25500000 0.00261813
+    #>    Estimation StandartError 
+    #>    0.25500000    0.00261813
 
 Because we set strike price to 120, simulated results are rare. We
 expect IS to reduce variance. Let’s use IS and Inner CV together. We
@@ -189,5 +189,5 @@ function.
 
     simulate.outer(n=1e6,d=3,q.outer=sim.InnerCV,q.cv=sim.IS,muis=1.03,sis=1,
                    q.is=myq_asian,K=120,ti=(1:3)/12,r=0.03,sigma=0.3,S0=100)
-    #>         est          SE 
-    #> 0.256000000 0.000614824
+    #>    Estimation StandartError 
+    #>   0.256000000   0.000614824
