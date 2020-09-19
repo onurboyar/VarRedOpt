@@ -4,14 +4,12 @@
 \alias{simulate.outer}
 \title{Main function for VarRedOpt simulation framework.}
 \usage{
-\method{simulate}{outer}(n, d, lhs = F, auto_repetition = 1, q.outer, ...)
+\method{simulate}{outer}(n, d, auto_repetition = 1, q.outer, ...)
 }
 \arguments{
 \item{n}{Simulation length.}
 
 \item{d}{Simulation dimension.}
-
-\item{lhs}{Applies Latin Hypercube sampling if lhs=TRUE.}
 
 \item{auto_repetition}{Applies auto_repetition of auto_repetition = TRUE.}
 

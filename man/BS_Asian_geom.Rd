@@ -15,12 +15,14 @@ BS_Asian_geom(K = 100, T, d, ti, r = 0.05, sigma = 0.1, S0 = 100, ...)
 
 \item{ti}{Vector of control points.}
 
-\item{r}{Interest rate}
+\item{r}{Riskfree rate}
 
-\item{S0}{Initial value.}
+\item{sigma}{Yearly volatility.}
+
+\item{S0}{Stock price at start.}
 }
 \value{
-q.is returns simulation results. it stores 4 elements sim.IS adds new elements to results and returns it.
+Expected value of Geometric Average Asian Call Option, vector of control points, interest rate and strike price as a list.
 }
 \description{
 Function to calculate expected value of Geometric Asian Call Option via Block Scholes formula.

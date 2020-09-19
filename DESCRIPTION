@@ -8,13 +8,17 @@ Authors@R: c(person(given = "Onur",
            email = "boyaronur@gmail.com"),
            person(given = "Wolfgang",
            family = "Hörmann",
-           role = c("aut", "cre"),
+           role = c("aut"),
            email = "hormannw@boun.edu.tr")
    )
 Maintainer: The package maintainer <boyaronur@gmail.com>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Description: VarRedOpt framework makes it easy to use variance reduction algorithms for any simulation.
+    We propose user friendly and easy to extend framework. Antithetic Variates, Inner Control Variates,
+    Outer Control Variates and Importance Sampling algorithms are available in the framework. User can
+    write its own simulation function and use the Variance Reduction techniques in this package to
+    obtain more efficient simulations. An implementation of Asian Option simulation is already 
+    available within the package.
+License: MIT
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1

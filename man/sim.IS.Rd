@@ -18,10 +18,10 @@ sim.IS(zm, use_pilot_study = TRUE, muis = 1, sis = 1, q.is = myq, ...)
 \item{q.is}{q function that sim.IS function gets target vectors to apply variance reduction.}
 }
 \value{
-q.is returns simulation results. it stores 4 elements sim.IS adds new elements to results and returns it.
+Weighted simulated values or weights and simulated values are added to input list depending on the initial input size.
 }
 \description{
-Given matrix input with d dimension, this function applies Importance Sampling algorithm and it chooses the best value of the mean value of the importance density automatically. Performs better in rare event simulation.
+Given matrix input with d dimension, this function applies Importance Sampling algorithm and it chooses the best value of the mean value of the importance density automatically. Performs better in rare event simulation. sim.IS checks the input size and returns elements accordingly. If the input value is a list of one element it only updates the simulated value with importance weight and returns that value. If the input value has a dimension bigger than 1, weight values are added separately as another input of the list.
 }
 \examples{
  simulate.outer(zm, q.outer = sim.IS, q.is = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)

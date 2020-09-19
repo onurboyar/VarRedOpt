@@ -11,16 +11,18 @@ myq_asian(zm, K = 100, ti = (1:3)/12, r = 0.05, sigma = 0.1, S0 = 100)
 
 \item{ti}{Vector of control points.}
 
-\item{r}{Interest rate}
+\item{r}{Riskfree rate.}
 
-\item{S0}{Initial value.}
+\item{sigma}{Yearly volatility.}
+
+\item{S0}{Stock price at start.}
 
 \item{T}{Time to maturity.}
 
 \item{d}{Dimension of input z matrix.}
 }
 \value{
-q.is returns simulation results. it stores 4 elements sim.IS adds new elements to results and returns it.
+Returns 4 elements as a list. Asian Call Option Prices, Last Price of Asian Call Option, Expected Value of Asian Call Option, Product of the prices through time
 }
 \description{
 Function to calculate expected value of Geometric Asian Call Option via Block Scholes formula.
