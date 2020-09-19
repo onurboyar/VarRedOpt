@@ -1,6 +1,6 @@
 #' @title Function to apply Importance Sampling Algorithm.
 #'
-#' @description Given matrix input with d dimension, this function applies Importance Sampling algorithm and it chooses the best value of the mean value of the importance density automatically. Performs better in rare event simulation.
+#' @description Given matrix input with d dimension, this function applies Importance Sampling algorithm and it chooses the best value of the mean value of the importance density automatically. Performs better in rare event simulation. sim.IS checks the input size and returns elements accordingly. If the input value is a list of one element it only updates the simulated value with importance weight and returns that value. If the input value has a dimension bigger than 1, weight values are added separately as another input of the list.
 #
 #'
 #' @param zm A matrix with dimension d and length n.
@@ -9,7 +9,7 @@
 #' @param sis standard deviation parameter of the importance density.
 #' @param q.is q function that sim.IS function gets target vectors to apply variance reduction.
 #'
-#' @return q.is returns simulation results. it stores 4 elements sim.IS adds new elements to results and returns it.
+#' @return Weighted simulated values or weights and simulated values are added to input list depending on the initial input size.
 #'
 #' @examples  simulate.outer(zm, q.outer = sim.IS, q.is = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)
 #'
@@ -65,15 +65,14 @@ sim.IS <- function(zm, use_pilot_study=TRUE, muis=1, sis=1,q.is=myq,...){
   }
   # results list is already length of 4. it has y, last_price, E_z, prodSt.
   # by using IS, we change y and we add new values to the list starting from
-  # index 5
+  # index 5df_
   results[[1]] <- y*w
   #
   if(length(results)==1){return(results)}
   #
-  results[[5]] <- zm
   # add IS weight
-  results[[6]] <- w
-  # add y values obtained from q.is
-  results[[7]] <- y
+  length_results = length(results)
+  results[[length_results+1]] <- w
+  results[[length_results+2]] <- y
   return(results)
 }

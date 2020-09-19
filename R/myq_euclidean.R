@@ -1,19 +1,14 @@
-#' @title Block Scholes for Geometric Asian Call Option
+#' @title Euclidean Distance
 #'
-#' @description Function to calculate expected value of Geometric Asian Call Option via Block Scholes formula.
+#' @description Function to calculate euclidean distance between two vectors.
 #
 #'
-#' @param K Strike price.
-#' @param T Time to maturity.
-#' @param d Dimension of input z matrix.
-#' @param ti Vector of control points.
-#' @param r Interest rate
-#' @param sigma
-#' @param S0 Initial value.
+#' @param zm Input matrix of set of vectors.
+#' @param point Coordinates of the point to calculate distance to the input.
 #'
-#' @return q.is returns simulation results. it stores 4 elements sim.IS adds new elements to results and returns it.
+#' @return Sum of the euclidean distance from point to set of vectors.
 #'
-#' @examples  simulate.outer(zm, q.outer = sim.IS, q.is = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)
+#' @examples simulate.outer(n=1e5,d=3,q.outer=myq_euclidean,point=c(1,1,1))
 #'
 
 myq_euclidean <- function(zm,point=c(1,2,1)){

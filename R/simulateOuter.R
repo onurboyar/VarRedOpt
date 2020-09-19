@@ -5,7 +5,6 @@
 #'
 #' @param n Simulation length.
 #' @param d Simulation dimension.
-#' @param lhs Applies Latin Hypercube sampling if lhs=TRUE.
 #' @param auto_repetition Applies auto_repetition of auto_repetition = TRUE.
 #' @param  q.outer Accepts the function name of the variance reduction / simulation algorithm.
 #'
@@ -16,12 +15,11 @@
 
 
 
-simulate.outer <- function(n,d,lhs=F,auto_repetition=1,q.outer,...){
+simulate.outer <- function(n,d,auto_repetition=1,q.outer,...){
   # main function for the simulation framework
   # Parameters:
   # ... n -> simulation length
   # ... d -> simulation dimension
-  # ... lhs -> applies Latin Hypercube sampling if lhs=TRUE
   # ... auto_repetition -> applies auto_repetition of auto_repetition = TRUE
   # ... q.outer -> accepts the function name of the variance reduction / simulation algorithm
   # Returns:
@@ -30,13 +28,9 @@ simulate.outer <- function(n,d,lhs=F,auto_repetition=1,q.outer,...){
   # ... confidence interval metrics if auto_repetition = TRUE
 
   set.seed(1)
-  # create z.matrix. if lhs=T, create it using LHS
-  if(lhs == F){
-    zm <- matrix(rnorm(n*d),ncol=d)
-  }
-  else if(lhs == T){
-    zm <- matrix(lhs::randomLHS(n,d), ncol = d)
-  }
+
+  zm <- matrix(rnorm(n*d),ncol=d)
+
   # send z.matrix to given simulation function and use only y values
   # from returning list of q.outer
   y_sim <- as.data.frame(q.outer(zm,...))[,1]
@@ -52,12 +46,8 @@ simulate.outer <- function(n,d,lhs=F,auto_repetition=1,q.outer,...){
     repetitions=auto_repetition
     y_vector = c()
     for(i in 1:repetitions){
-      if(lhs == F){
-        zm <- matrix(rnorm(n*d),ncol=d)
-      }
-      else if(lhs == T){
-        zm <- matrix(LHS(n,d), ncol = d)
-      }
+
+      zm <- matrix(rnorm(n*d),ncol=d)
       # apply variance reduction algorithms through q.outer, if any given
       y <- as.data.frame(q.outer(zm,...))[,1]
       # store simulation estimation and standart errors of each of the 1000 simulations
