@@ -1,0 +1,170 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+# VarRedOpt
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+Simulation is needed to approximate the most probable behavior of the system or the solution of the problem
+at hand. In order to do that, we use different simulation techniques. These techniques can take random
+variables as input and attempts to approximate the solution of our problem.
+Our variance reduction framework makes it easier to do experiments without writing variance reduction
+algorithms itself. The idea is to get desired variance reduction algorithms from the user via a function
+that launches the simulation process and printing the simulation results. The launcher function is the only
+function user needs to fill with parameters. The parameters of this function are the name of the variance
+reduction algorithms to be applied, the naive simulation and parameters to fed the simulation function. The
+name of this ‘launcher’ function in our framework is simulate.outer(. . . ). Variance reduction algorithms are
+already implemented in our framework and the user can easily take advantage of these method by simply
+writing their function names.
+
+## Installation
+
+You can install the released version of VarRedOpt from [CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("VarRedOpt")
+```
+
+And the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("onurboyar/VarRedOpt")
+```
+## Example
+
+To make things more concrete, let’s specify the parameters needed to simulate an Asian Option.
+To simulate Asian Option, we need to have
+
+- Strike price (K)
+- Interest rate (riskfree rate) (r)
+- Starting price (S0)
+- Sigma, yearly volatiliyu (sigma)
+- Time (ti)
+
+To ‘launch’ a simulation process via simulate.outer, we need to give the simulation size (n) and the dimension
+values (d).
+In order to get naive simulation without appling any of the variance reduction algorithms, we need just need
+to give the above parameters to simulate.outer function in the following way.
+
+
+```{r example}
+library(VarRedOpt)
+simulate.outer(n=1e5, d=3, q.outer = myq_asian,
+               K = K, ti = ti, r = 0.03, sigma = 0.3, S0 = 100)
+
+```
+
+There are a lot of different parameters to be used in different function in our framework. In order to handle
+different parameters and create a flexible framework, we take advantage of ellipsis parameter (. . . ) of R
+inside our functions.
+
+## Details & Algorithms
+
+The main function of our framework is simulate.outer() function. It simulates the input variables, which are
+standart normal random variables. The size of this simulated in determined by the given parameters, n and
+d. Given these values, simulate.outer() creates Z matrix which includes standart normal random variables.
+The Z matrix is the input of our target simulation. If we stick to our previous example, Z matrix will be
+passed to myq_asian() function within simulate.outer() function. Asian Option function will simulate Asian
+Option prices using Z matrix and return calculated prices to our main function. The main function calculates
+expected value and variance of the returning values and prints them as final output.
+
+### Antithetic Variates
+
+In order to add antithetic variates to our framework and simulate asian options we need to slightly change
+the simulate.outer function given above. Antithetic Variates calls the simulation function twice with using
+opposite signed inputs. The q.outer parameter of our main function will be sim.AV. In order to specify the
+function to be simulated we need another parameter. This parameter is named as q.av. It’s name includes
+av because this parameter is only needed when we are using sim.AV within our framework. We will give
+q.av = myq_asian. The function now becomes
+
+```{r example}
+simulate.outer(n=1e5, d=3, q.outer = sim.AV, 
+               q.av = myq_asian,K = K, ti = ti, r = 0.03, sigma = 0.3, S0 = 100)
+```
+
+### Inner Control Variates
+
+Like antithetic variates, inner control variates does not require any additional parameters. It can be directly
+applied to naive simulation since it uses only input variables as control variates. To run our simulation
+with inner control variates, we need to assign different function to q.outer parameter. Our framework has a
+built-in function named sim.InnerCV(). In order to simulate Asian Option with Inner Control Variates, the
+following function can be used.
+
+```{r example}
+simulate.outer(n=1e5, d=3, q.outer = sim.InnerCV, 
+               q.cv = myq_asian,K = K, ti = ti, r = 0.03, sigma = 0.3, S0 = 100)
+```
+
+### Outer Control Variates
+
+Outer Control Variates is using the result of a similar problem to the task at hand in which the exact solution is known. Deciding good outer control variate results in a great amount of variance reduction. The main disadvantage of this method is that it is diffcult and requires knowledge to and
+such a control variate; also the additional computations may be quite slow. 
+
+In Option Pricing, we can use prices of other options as Outer Control Variates. Since we use expected values of the control variates in our calculations, the exact solution of the future prices must be known. 
+
+As an example we can take Asian Options again. If we want to simulate Asian Option prices using Outer Control variates we can use Asian Call Option with Geometric Mean as an Outer Control Variate since it's exact solution is known. 
+
+```{r example}
+simulate.outer(n, d, q.outer = sim.AV, q.av = sim.GeometricAvg, 
+               q.ga = myq_asian,K = K, ti = ti, r = 0.03, sigma=0.3, S0=100)
+```
+
+Outer Control Variates function is the same as Inner Control Variates function in several ways. It has the
+same control for returning list lengths and application logic of the IS weight is the same. The major difference
+is the control variate itself. In Inner Control Variates function, we use input columns as control variates. In
+Geometric Average Outer Control Variate, we use product of the prices as control variates and it is returned
+from our myq_asian function. The expectation of this control variate is calculated by BS_Asian_geom
+function.
+
+### Importance Sampling
+
+Importance Sampling is a variance reduction technique that is especially useful in rare event simulation. In
+an Option Pricing problem like Asian Call Options, when we have strike price like 140 we have a rare event
+simulation problem.
+
+To be able to sample from tails, we sample from the different distribution and fix the error of not sampling
+from the correct distribution in Importance Sampling. For further information please refer to [1, 2].
+In our framework, in order to apply Importance Sampling, user should specify two parameters. One is muis
+and the other is sis. muis is the mean value of the importance density and sis is the standart deviation of
+the importance density.
+
+If user do not want to specify muis value, use_pilot_study parameter can be used to look for an optimum
+muis value by using a pilot study. In current version, muis values in an interval [1.01, 1.2] is used as candidate
+values for muis values. Starting from 1.01, values are incremented by 0.01 until it is reached to 1.2.
+sis, standart deviaton of the IS density, is not recommended to be changed. We do not offer optimization
+for sis value. Nevertheless, our framework look for optimum muis value by conducting a pilot study inside
+the function.
+
+```{r example}
+simulate.outer(1e6,d=3,q.outer=myq_asian,K=120,
+               ti=(1:3)/12,r=0.03,sigma=0.3,S0=100)
+```
+
+Now, let’s add Inner Control Variates and obtain a little variance reduction.
+
+```{r example}
+simulate.outer(n=1e6,d=3,q.outer=sim.InnerCV,
+               q.cv=myq_asian,K=120,ti=(1:3)/12,r=0.03,sigma=0.3,S0=100)
+```
+
+Because we set strike price to 120, simulated results are rare. We expect IS to reduce variance. Let’s use IS
+and Inner CV together. We apply IS weights after calculating simulated values in Control Variates function.
+
+```{r example}
+simulate.outer(n=1e6,d=3,q.outer=sim.InnerCV,q.cv=sim.IS,muis=1.03,sis=1,
+               q.is=myq_asian,K=120,ti=(1:3)/12,r=0.03,sigma=0.3,S0=100)
+```
+
