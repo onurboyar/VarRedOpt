@@ -65,5 +65,5 @@ simulate.outer <- function(n,d,auto_repetition=1,q.outer,...){
     return(c(round(mean_y_sim,3), round(SE_y_sim,10), is_in_CI))
   }
   # return only mean_y_sim and SE_y_sim if auto_repetition=FALSE
-  return( c(estimation=round(mean(y_sim),3),StandartError=round(1.96*sqrt(var(y_sim)/n) , 10)) )
+  return( c(Estimation=round(mean(y_sim),3),StandartError=round(1.96*sqrt(var(y_sim)/n) , 10)) )
 }
