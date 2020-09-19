@@ -46,7 +46,7 @@ simulate an Asian Option. To simulate Asian Option, we need to have
 -   Strike price (K)
 -   Interest rate (riskfree rate) (r)
 -   Starting price (S0)
--   Sigma, yearly volatiliyu (sigma)
+-   Sigma, yearly volatility (sigma)
 -   Time (ti)
 
 To ‘launch’ a simulation process via simulate.outer, we need to give the
