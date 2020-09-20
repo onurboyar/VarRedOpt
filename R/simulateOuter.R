@@ -62,7 +62,7 @@ simulate.outer <- function(n,d,auto_repetition=1,q.outer,...){
                      mean_y_sim < confidence_interval_upper)/1000
 
     # return mean_y_sim,SE_y_sim and is_in_CI if auto_repetition=TRUE
-    return(c(round(mean_y_sim,3), round(SE_y_sim,10), is_in_CI))
+    return(c(Estimation=round(mean_y_sim,3), StandartError=round(SE_y_sim,10), ConfidenceIntervalRatio=is_in_CI))
   }
   # return only mean_y_sim and SE_y_sim if auto_repetition=FALSE
   return( c(Estimation=round(mean(y_sim),3),StandartError=round(1.96*sqrt(var(y_sim)/n) , 10)) )

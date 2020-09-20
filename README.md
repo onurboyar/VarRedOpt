@@ -7,6 +7,33 @@ VarRedOpt
 <!-- badges: start -->
 <!-- badges: end -->
 
+The increase in computing power has been making us capable to run bigger
+simulations. We can choose bigger sample sizes with bigger dimensions.
+Nevertheless, this phenomenon does not make the need for an efficient
+simulation disappear. We still have to choose the most efficient way to
+make our simulations in order to get more robust results with the
+computing power at hand.
+
+The reliability of the simulation lies is the variance of the
+simulation. As the simulation size increase, variance is expected to be
+decreased. We can increase simulation size to the point but after a
+certain point the simulation time will be infeasible to get results.
+This problem reveals the need for a different approach. We need a set of
+tools to get more robust simulation results with the same simulation
+size. This is where variance reduction (VR) algorithm comes to our help.
+
+A Variance Reduction Algorithm is an algorithm that behaves like the
+simulation itself. These algorithms uses simulations as an input and
+returns another simulation with almost the same expected value and less
+variance value.
+
+In this library, we are sharing different VR algorithms as a framework.
+Antithetic Variates, Inner Control Variates, Outer Control Variates and
+Importance Sampling algorithms are applied and presentended as
+ready-to-use manner. Any user can run their simulations with different
+combinations of these methods and get advantage of these variance
+reduction algorithms.
+
 Simulation is needed to approximate the most probable behavior of the
 system or the solution of the problem at the hand. In order to do that,
 we use different simulation techniques. These techniques can take random
@@ -58,6 +85,14 @@ reduction algorithms, we need just need to give the above parameters to
 simulate.outer function in the following way.
 
     devtools::install_github("onurboyar/VarRedOpt")
+    #>      checking for file ‘/private/var/folders/x0/92n0x33d1q33x2l2th2d_2yr0000gn/T/Rtmp4Hs1IA/remotes101ad463f2304/onurboyar-VarRedOpt-1ae199f/DESCRIPTION’ ...  ✓  checking for file ‘/private/var/folders/x0/92n0x33d1q33x2l2th2d_2yr0000gn/T/Rtmp4Hs1IA/remotes101ad463f2304/onurboyar-VarRedOpt-1ae199f/DESCRIPTION’
+    #>   ─  preparing ‘VarRedOpt’:
+    #>      checking DESCRIPTION meta-information ...  ✓  checking DESCRIPTION meta-information
+    #>   ─  checking for LF line-endings in source and make files and shell scripts
+    #>   ─  checking for empty or unneeded directories
+    #>   ─  building ‘VarRedOpt_0.1.0.tar.gz’
+    #>      
+    #> 
     library(VarRedOpt)
     simulate.outer(n=1e5, d=3, q.outer = myq_asian,
                    K = 100, ti=(1:3)/12, r = 0.03, sigma = 0.3, S0 = 100)
@@ -91,6 +126,43 @@ function. Asian Option function will simulate Asian Option prices using
 Z matrix and return calculated prices to our main function. The main
 function calculates expected value and variance of the returning values
 and prints them as final output.
+
+### simulate.outer
+
+If we set simulation size to 10<sup>7</sup> we already have big
+simulation size and it is hard to run this simulation few times to check
+if we are getting consistent results. We can compare expected values
+obtained from these simulations with confidence interval and see if
+expected values are within the confidence interval. It is hard to
+perform this task if our simulation size is equal to 10<sup>6</sup> or
+10<sup>7</sup> but it is not hard if it is equal to 10<sup>3</sup>.
+Besides, another problem is that all functions need to store several
+vectors of length n, this grows bigger if we have a dimension greater
+than 1, and it makes simulation hard to run due to memory constraints.
+We can run simulations of size 10<sup>3</sup> few times, let’s say
+10<sup>3</sup> after running our main simulation with simulation size
+10<sup>6</sup>. After estimated mean of our bigger simulation we can
+check if it lays within confidence intervals of these 10<sup>3</sup>
+simulations and come up with different measure to evaluate our
+simulation. In our framework it is very simple to make such analysis.
+All needed to be done is to set auto.repetition parameter to a value
+rather than 1 in the following way.
+
+$$simulate.outer(n, d, auto\\\_repetition = 100, q.outer = myq\\\_asian, \\\\K = K, ti = ti, r = 0.03, sigma = 0.3, S0 = 100)$$
+
+Above function will run simulation with n = 1000 auto\_repetition times,
+which is 100. Another aspect need to be mentioned of the
+simulate.outer() function is the q.outer parameter. In the above example
+it is set to function that simulates Asian Option. In order to perform
+variance reduction via the algorithms within our framework, we need to
+give different parameter(s) to our main function. If we are to add
+Antithetic Variates within our framework, q.outer parameter will be set
+to sim.AV and the new parameter will appear. It is the parameter that we
+need inside sim.AV function to call in order to perform variance
+reduction. When we set q.outer to sim.AV, we need to specify another
+parameter to tell our framework the function to be simulated, like Asian
+Option. Since we are using sim.AV function in this example, it must be
+called inside of the sim.AV function.
 
 ### Antithetic Variates
 
@@ -214,3 +286,39 @@ function.
                    q.is=myq_asian,K=120,ti=(1:3)/12,r=0.03,sigma=0.3,S0=100)
     #>    Estimation StandartError 
     #>   0.256000000   0.000614824
+
+### Adding Custom Function to VarRedOpt
+
+In this section motivating examples will be given to show how to perform
+naive simulation using our framework. If we want to simulate Euclidean
+distance of iid N(0, 1) vector to given point, we can write following
+function.
+
+    myq_euclidean <- function(zm,point=c(1,2,1)){
+      # returns Euclidean distance of iid N(0,1) vector to "point"
+      d <- length(point)
+      sumDist2 <- 0
+      for(i in 1:d) sumDist2 <- sumDist2 + (point[i]-zm[,i])^2
+      
+      returning_list = list(sqrt(sqrt(sumDist2)))
+      return(returning_list)
+    }
+
+This function, *myq*, takes two parameters. The length of the point
+vector and the dimension of the z.matrix should be the same in order to
+find euclidean distance between these points. Note that returning value
+type have to be list.
+
+Now, let’s simulate myq using our framework.
+
+    simulate.outer(n=1e6,d=2,q.outer=myq_euclidean,point=c(1,3))
+    #>    Estimation StandartError 
+    #>  1.8020000000  0.0005443944
+
+Let’s see the output when we use auto repetition.
+
+    simulate.outer(n=1e6,d=2,auto_repetition=1000,q.outer=myq_euclidean,point=c(1,3))
+    #> [1] 1.8020000000 0.0005443944 0.9470000000
+
+*We observe that estimated value is in the confidence interval 947 times
+out of 1000.*
