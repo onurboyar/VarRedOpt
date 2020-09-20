@@ -8,21 +8,22 @@ VarRedOpt
 <!-- badges: end -->
 
 Simulation is needed to approximate the most probable behavior of the
-system or the solution of the problem at hand. In order to do that, we
-use different simulation techniques. These techniques can take random
-variables as input and attempts to approximate the solution of our
-problem. Our variance reduction framework makes it easier to do
-experiments without writing variance reduction algorithms itself. The
-idea is to get desired variance reduction algorithms from the user via a
-function that launches the simulation process and printing the
-simulation results. The launcher function is the only function user
-needs to fill with parameters. The parameters of this function are the
-name of the variance reduction algorithms to be applied, the naive
-simulation and parameters to fed the simulation function. The name of
-this ‘launcher’ function in our framework is simulate.outer(. . . ).
-Variance reduction algorithms are already implemented in our framework
-and the user can easily take advantage of these method by simply writing
-their function names.
+system or the solution of the problem at the hand. In order to do that,
+we use different simulation techniques. These techniques can take random
+variables as input and attempt to approximate the solution of the our
+problem.
+
+Our variance reduction framework makes it easier to conduct experiments
+without writing variance reduction algorithms itself. The idea is to get
+desired variance reduction algorithms from the user via a function that
+launches the simulation process and printing the simulation results. The
+launcher function is the only function user needs to fill with
+parameters. The parameters of this function are the name of the variance
+reduction algorithms to be applied, the naive simulation and parameters
+to feed the simulation function. The name of this ‘launcher’ function in
+our framework is *simulate.outer(. . . ).* Variance reduction algorithms
+are already implemented in our framework and the user can easily take
+advantage of these methods by simply writing their function names.
 
 Installation
 ------------
@@ -49,11 +50,12 @@ simulate an Asian Option. To simulate Asian Option, we need to have
 -   Sigma, yearly volatility (sigma)
 -   Time (ti)
 
-To ‘launch’ a simulation process via simulate.outer, we need to give the
-simulation size (n) and the dimension values (d). In order to get naive
-simulation without appling any of the variance reduction algorithms, we
-need just need to give the above parameters to simulate.outer function
-in the following way.
+To ‘launch’ a simulation process via simulate.outer function, we need to
+give the simulation size (n) and the dimension values (d).
+
+In order to get naive simulation without appling any of the variance
+reduction algorithms, we need just need to give the above parameters to
+simulate.outer function in the following way.
 
     devtools::install_github("onurboyar/VarRedOpt")
     library(VarRedOpt)
@@ -62,10 +64,18 @@ in the following way.
     #>    Estimation StandartError 
     #>    4.54300000    0.04283238
 
-There are a lot of different parameters to be used in different function
-in our framework. In order to handle different parameters and create a
-flexible framework, we take advantage of ellipsis parameter (. . . ) of
-R inside our functions.
+simulate.outer function creates a matrix with 10<sup>5</sup> rows and 3
+columns. Values in that matrix are drawn from standart normal
+distribution. This matrix is sent to *myq\_asian* function as an input
+and Asian Call Option prices are simulated. The simulated values are
+sent back to *simulate.outer* function to calculate estimation and
+standart error values. User sees these values as the output of the
+simulation.
+
+There are a lot of different parameters to be used in different
+functions in our framework. In order to handle different parameters and
+to create a flexible framework, we are taking advantage of *ellipsis*
+parameter (. . . ) of R inside our functions.
 
 Details & Algorithms
 --------------------
@@ -86,12 +96,13 @@ and prints them as final output.
 
 In order to add antithetic variates to our framework and simulate asian
 options we need to slightly change the simulate.outer function given
-above. Antithetic Variates calls the simulation function twice with
-using opposite signed inputs. The q.outer parameter of our main function
-will be sim.AV. In order to specify the function to be simulated we need
-another parameter. This parameter is named as q.av. It’s name includes
+above. Antithetic Variates calls the simulation function twice by using
+opposite signed inputs. The q.outer parameter of our main function will
+be *sim.AV*. In order to specify the function to be simulated we need
+another parameter. This parameter is named as *q.av*. It’s name includes
 av because this parameter is only needed when we are using sim.AV within
-our framework. We will give q.av = myq\_asian. The function now becomes
+our framework. We will give *q.av = myq\_asian* this time. The function
+now becomes
 
     simulate.outer(n=1e5, d=3, q.outer = sim.AV, 
                    q.av = myq_asian,K = 100, ti = (1:3)/12, r = 0.03, sigma = 0.3, S0 = 100)
@@ -100,27 +111,30 @@ our framework. We will give q.av = myq\_asian. The function now becomes
 
 ### Inner Control Variates
 
-Like antithetic variates, inner control variates does not require any
-additional parameters. It can be directly applied to naive simulation
-since it uses only input variables as control variates. To run our
-simulation with inner control variates, we need to assign different
-function to q.outer parameter. Our framework has a built-in function
-named sim.InnerCV(). In order to simulate Asian Option with Inner
-Control Variates, the following function can be used.
+Like antithetic variates, inner control variates algorithm does not
+require any additional parameters. It can be directly applied to naive
+simulation since it uses only input variables as control variates. To
+run our simulation with inner control variates, we need to assign
+different function to *q.outer* parameter. Our framework has a built-in
+function named *sim.InnerCV()*. In order to simulate Asian Option with
+Inner Control Variates, the following function can be used.
 
     simulate.outer(n=1e5, d=3, q.outer = sim.InnerCV, 
                    q.cv = myq_asian,K = 100, ti =(1:3)/12, r = 0.03, sigma = 0.3, S0 = 100)
     #>    Estimation StandartError 
     #>    4.53800000    0.01698056
 
+Note that we are using *q.cv* parameter this time.
+
 ### Outer Control Variates
 
-Outer Control Variates is using the result of a similar problem to the
-task at hand in which the exact solution is known. Deciding good outer
-control variate results in a great amount of variance reduction. The
-main disadvantage of this method is that it is diffcult and requires
-knowledge to and such a control variate; also the additional
-computations may be quite slow.
+Outer Control Variates approach is using the result of a similar problem
+to the task at hand in which the exact solution is known. Deciding good
+outer control variate results in a great amount of variance reduction.
+The main disadvantage of this method is that it is difficult and
+requires domain knowledge to come up with such a control variate; also
+the additional computations may be quite slow depending on the control
+variate.
 
 In Option Pricing, we can use prices of other options as Outer Control
 Variates. Since we use expected values of the control variates in our
@@ -145,6 +159,14 @@ Outer Control Variate, we use product of the prices as control variates
 and it is returned from our myq\_asian function. The expectation of this
 control variate is calculated by BS\_Asian\_geom function.
 
+Using IS and CV together is not as straightforward as using AV and CV or
+AV and IS together. Applying IS weight and returning updated simulation
+values to CV does not work well. Following the opposite approach,
+applying CV and returning updated values to IS and applying IS weight to
+these values does not work well either. What we do is that applying
+multiplying target values with IS weight after decreasing variance by
+applying Control Variates.
+
 ### Importance Sampling
 
 Importance Sampling is a variance reduction technique that is especially
@@ -154,11 +176,12 @@ simulation problem.
 
 To be able to sample from tails, we sample from the different
 distribution and fix the error of not sampling from the correct
-distribution in Importance Sampling. For further information please
-refer to \[1, 2\]. In our framework, in order to apply Importance
-Sampling, user should specify two parameters. One is muis and the other
-is sis. muis is the mean value of the importance density and sis is the
-standart deviation of the importance density.
+distribution in Importance Sampling.
+
+In our framework, in order to apply Importance Sampling, user should
+specify two parameters. One is muis and the other is sis. muis is the
+mean value of the importance density and sis is the standart deviation
+of the importance density.
 
 If user do not want to specify muis value, use\_pilot\_study parameter
 can be used to look for an optimum muis value by using a pilot study. In
