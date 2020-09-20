@@ -85,14 +85,6 @@ reduction algorithms, we need just need to give the above parameters to
 simulate.outer function in the following way.
 
     devtools::install_github("onurboyar/VarRedOpt")
-    #>      checking for file ‘/private/var/folders/x0/92n0x33d1q33x2l2th2d_2yr0000gn/T/Rtmp4Hs1IA/remotes101ad463f2304/onurboyar-VarRedOpt-1ae199f/DESCRIPTION’ ...  ✓  checking for file ‘/private/var/folders/x0/92n0x33d1q33x2l2th2d_2yr0000gn/T/Rtmp4Hs1IA/remotes101ad463f2304/onurboyar-VarRedOpt-1ae199f/DESCRIPTION’
-    #>   ─  preparing ‘VarRedOpt’:
-    #>      checking DESCRIPTION meta-information ...  ✓  checking DESCRIPTION meta-information
-    #>   ─  checking for LF line-endings in source and make files and shell scripts
-    #>   ─  checking for empty or unneeded directories
-    #>   ─  building ‘VarRedOpt_0.1.0.tar.gz’
-    #>      
-    #> 
     library(VarRedOpt)
     simulate.outer(n=1e5, d=3, q.outer = myq_asian,
                    K = 100, ti=(1:3)/12, r = 0.03, sigma = 0.3, S0 = 100)
@@ -148,7 +140,8 @@ simulation. In our framework it is very simple to make such analysis.
 All needed to be done is to set auto.repetition parameter to a value
 rather than 1 in the following way.
 
-$$simulate.outer(n, d, auto\\\_repetition = 100, q.outer = myq\\\_asian, \\\\K = K, ti = ti, r = 0.03, sigma = 0.3, S0 = 100)$$
+    simulate.outer(n=1e5, d=3, auto_repetition = 100, q.outer = myq_asian, 
+                   K = 100, ti = (1:3)/12, r = 0.03, sigma = 0.3, S0 = 100)
 
 Above function will run simulation with n = 1000 auto\_repetition times,
 which is 100. Another aspect need to be mentioned of the
@@ -177,7 +170,7 @@ our framework. We will give *q.av = myq\_asian* this time. The function
 now becomes
 
     simulate.outer(n=1e5, d=3, q.outer = sim.AV, 
-                   q.av = myq_asian,K = 100, ti = (1:3)/12, r = 0.03, sigma = 0.3, S0 = 100)
+                   q.av = myq_asian, K = 100, ti = (1:3)/12, r = 0.03, sigma = 0.3, S0 = 100)
     #>    Estimation StandartError 
     #>    4.55000000    0.02285073
 
@@ -304,10 +297,10 @@ function.
       return(returning_list)
     }
 
-This function, *myq*, takes two parameters. The length of the point
-vector and the dimension of the z.matrix should be the same in order to
-find euclidean distance between these points. Note that returning value
-type have to be list.
+This function, *myq\_euclidean*, takes two parameters. The length of the
+point vector and the dimension of the z.matrix should be the same in
+order to find euclidean distance between these points. Note that
+returning value type have to be list.
 
 Now, let’s simulate myq using our framework.
 
@@ -318,7 +311,8 @@ Now, let’s simulate myq using our framework.
 Let’s see the output when we use auto repetition.
 
     simulate.outer(n=1e6,d=2,auto_repetition=1000,q.outer=myq_euclidean,point=c(1,3))
-    #> [1] 1.8020000000 0.0005443944 0.9470000000
+    #>              Estimation           StandartError ConfidenceIntervalRatio 
+    #>            1.8020000000            0.0005443944            0.9470000000
 
 *We observe that estimated value is in the confidence interval 947 times
 out of 1000.*

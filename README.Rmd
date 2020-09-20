@@ -123,8 +123,10 @@ $10^3$ simulations and come up with different measure to evaluate our simulation
 simple to make such analysis. All needed to be done is to set auto.repetition parameter to a value rather
 than 1 in the following way.
 
-$$simulate.outer(n, d, auto\_repetition = 100, q.outer = myq\_asian, \\K = K, ti = ti, r = 0.03, sigma = 0.3, S0 = 100)$$
-
+```{r, eval=FALSE}
+simulate.outer(n=1e5, d=3, auto_repetition = 100, q.outer = myq_asian, 
+               K = 100, ti = (1:3)/12, r = 0.03, sigma = 0.3, S0 = 100)
+```
 Above function will run simulation with n = 1000 auto_repetition times, which is 100.
 Another aspect need to be mentioned of the simulate.outer() function is the q.outer parameter. In the
 above example it is set to function that simulates Asian Option. In order to perform variance reduction
@@ -146,7 +148,7 @@ _q.av = myq\_asian_ this time. The function now becomes
 
 ```{r}
 simulate.outer(n=1e5, d=3, q.outer = sim.AV, 
-               q.av = myq_asian,K = 100, ti = (1:3)/12, r = 0.03, sigma = 0.3, S0 = 100)
+               q.av = myq_asian, K = 100, ti = (1:3)/12, r = 0.03, sigma = 0.3, S0 = 100)
 ```
 
 ### Inner Control Variates
@@ -246,7 +248,7 @@ myq_euclidean <- function(zm,point=c(1,2,1)){
 }
 ```
 
-This function, _myq_, takes two parameters. The length of the point vector and the dimension of the z.matrix should be the same in order to find euclidean distance between these points. Note that returning value type have to be list.
+This function, _myq_euclidean_, takes two parameters. The length of the point vector and the dimension of the z.matrix should be the same in order to find euclidean distance between these points. Note that returning value type have to be list.
 
 Now, let's simulate myq using our framework.
 
