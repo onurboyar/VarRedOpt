@@ -17,6 +17,17 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
+- [Installation](#installation)
+- [Example](#example)
+- [Details & Algorithms](#detalg)
+- [simulate.outer](#simouter)
+- [Antithetic Variates](#antvar)
+- [Inner Control Variates](#innercv)
+- [Outer Control Variates](#outercv)
+- [Importance Sampling](#impsamp)
+- [Adding Custom Function to VarRedOpt](#custom)
+- [License](#license)
+
 The increase in computing power has been making us capable to run bigger simulations. We can choose
 bigger sample sizes with bigger dimensions. Nevertheless, this phenomenon does not make the need for an
 efficient simulation disappear. We still have to choose the most efficient way to make our simulations in
@@ -109,7 +120,7 @@ passed to myq_asian() function within simulate.outer() function. Asian Option fu
 Option prices using Z matrix and return calculated prices to our main function. The main function calculates
 expected value and variance of the returning values and prints them as final output.
 
-### simulate.outer
+## simulate.outer
 
 If we set simulation size to $10^7$ we already have big simulation size and it is hard to run this simulation few
 times to check if we are getting consistent results. We can compare expected values obtained from these
@@ -137,7 +148,7 @@ perform variance reduction. When we set q.outer to sim.AV, we need to specify an
 our framework the function to be simulated, like Asian Option. Since we are using sim.AV function in this
 example, it must be called inside of the sim.AV function.
 
-### Antithetic Variates
+## Antithetic Variates
 
 In order to add antithetic variates to our framework and simulate asian options we need to slightly change
 the simulate.outer function given above. Antithetic Variates calls the simulation function twice by using
@@ -151,7 +162,7 @@ simulate.outer(n=1e5, d=3, q.outer = sim.AV,
                q.av = myq_asian, K = 100, ti = (1:3)/12, r = 0.03, sigma = 0.3, S0 = 100)
 ```
 
-### Inner Control Variates
+## Inner Control Variates
 
 Like antithetic variates, inner control variates algorithm does not require any additional parameters. It can be directly
 applied to naive simulation since it uses only input variables as control variates. To run our simulation
@@ -166,7 +177,7 @@ simulate.outer(n=1e5, d=3, q.outer = sim.InnerCV,
 
 Note that we are using _q.cv_ parameter this time.
 
-### Outer Control Variates
+## Outer Control Variates
 
 Outer Control Variates approach is using the result of a similar problem to the task at hand in which the exact solution is known. Deciding good outer control variate results in a great amount of variance reduction. The main disadvantage of this method is that it is difficult and requires domain knowledge to come up with such a control variate; also the additional computations may be quite slow depending on the control variate. 
 
@@ -192,7 +203,7 @@ applying CV and returning updated values to IS and applying IS weight to these v
 either. What we do is that applying multiplying target values with IS weight after decreasing variance by 
 applying Control Variates.
 
-### Importance Sampling
+## Importance Sampling
 
 Importance Sampling is a variance reduction technique that is especially useful in rare event simulation. In
 an Option Pricing problem like Asian Call Options, when we have strike price like 140 we have a rare event
@@ -232,7 +243,7 @@ simulate.outer(n=1e6,d=3,q.outer=sim.InnerCV,q.cv=sim.IS,muis=1.03,sis=1,
                q.is=myq_asian,K=120,ti=(1:3)/12,r=0.03,sigma=0.3,S0=100)
 ```
 
-### Adding Custom Function to VarRedOpt
+## Adding Custom Function to VarRedOpt
 
 In this section motivating examples will be given to show how to perform naive simulation using our framework. If we want to simulate Euclidean distance of iid N(0, 1) vector to given point, we can write following function.
 
@@ -260,3 +271,7 @@ Let's see the output when we use auto repetition.
 simulate.outer(n=1e6,d=2,auto_repetition=1000,q.outer=myq_euclidean,point=c(1,3))
 ```
 _We observe that estimated value is in the confidence interval 947 times out of 1000._
+
+## LICENCE
+
+MIT © [Onur Boyar](https://github.com/onurboyar)

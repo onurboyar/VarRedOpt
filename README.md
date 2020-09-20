@@ -7,6 +7,17 @@ VarRedOpt
 <!-- badges: start -->
 <!-- badges: end -->
 
+-   [Installation](#installation)
+-   [Example](#example)
+-   [Details & Algorithms](#detalg)
+-   [simulate.outer](#simouter)
+-   [Antithetic Variates](#antvar)
+-   [Inner Control Variates](#innercv)
+-   [Outer Control Variates](#outercv)
+-   [Importance Sampling](#impsamp)
+-   [Adding Custom Function to VarRedOpt](#custom)
+-   [License](#license)
+
 The increase in computing power has been making us capable to run bigger
 simulations. We can choose bigger sample sizes with bigger dimensions.
 Nevertheless, this phenomenon does not make the need for an efficient
@@ -119,7 +130,8 @@ Z matrix and return calculated prices to our main function. The main
 function calculates expected value and variance of the returning values
 and prints them as final output.
 
-### simulate.outer
+simulate.outer
+--------------
 
 If we set simulation size to 10<sup>7</sup> we already have big
 simulation size and it is hard to run this simulation few times to check
@@ -157,7 +169,8 @@ parameter to tell our framework the function to be simulated, like Asian
 Option. Since we are using sim.AV function in this example, it must be
 called inside of the sim.AV function.
 
-### Antithetic Variates
+Antithetic Variates
+-------------------
 
 In order to add antithetic variates to our framework and simulate asian
 options we need to slightly change the simulate.outer function given
@@ -174,7 +187,8 @@ now becomes
     #>    Estimation StandartError 
     #>    4.55000000    0.02285073
 
-### Inner Control Variates
+Inner Control Variates
+----------------------
 
 Like antithetic variates, inner control variates algorithm does not
 require any additional parameters. It can be directly applied to naive
@@ -191,7 +205,8 @@ Inner Control Variates, the following function can be used.
 
 Note that we are using *q.cv* parameter this time.
 
-### Outer Control Variates
+Outer Control Variates
+----------------------
 
 Outer Control Variates approach is using the result of a similar problem
 to the task at hand in which the exact solution is known. Deciding good
@@ -232,7 +247,8 @@ these values does not work well either. What we do is that applying
 multiplying target values with IS weight after decreasing variance by
 applying Control Variates.
 
-### Importance Sampling
+Importance Sampling
+-------------------
 
 Importance Sampling is a variance reduction technique that is especially
 useful in rare event simulation. In an Option Pricing problem like Asian
@@ -280,7 +296,8 @@ function.
     #>    Estimation StandartError 
     #>   0.256000000   0.000614824
 
-### Adding Custom Function to VarRedOpt
+Adding Custom Function to VarRedOpt
+-----------------------------------
 
 In this section motivating examples will be given to show how to perform
 naive simulation using our framework. If we want to simulate Euclidean
@@ -316,3 +333,8 @@ Let’s see the output when we use auto repetition.
 
 *We observe that estimated value is in the confidence interval 947 times
 out of 1000.*
+
+LICENCE
+-------
+
+MIT © [Onur Boyar](https://github.com/onurboyar)
