@@ -19,13 +19,13 @@ knitr::opts_chunk$set(
 
 - [Installation](#installation)
 - [Example](#example)
-- [Details & Algorithms](#detalg)
-- [simulate.outer](#simouter)
-- [Antithetic Variates](#antvar)
-- [Inner Control Variates](#innercv)
-- [Outer Control Variates](#outercv)
-- [Importance Sampling](#impsamp)
-- [Adding Custom Function to VarRedOpt](#custom)
+- [Details and Algorithms](#details-and-algorithms)
+- [simulate outer](#simulate-outer)
+- [Antithetic Variates](#antithetic-variates)
+- [Inner Control Variates](#inner-control-variates)
+- [Outer Control Variates](#outer-control-variates)
+- [Importance Sampling](#importance-sampling)
+- [Adding Custom Function to VarRedOpt](#adding-custom-function-to-varredopt)
 - [License](#license)
 
 The increase in computing power has been making us capable to run bigger simulations. We can choose
@@ -110,7 +110,7 @@ There are a lot of different parameters to be used in different functions in our
 different parameters and to create a flexible framework, we are taking advantage of _ellipsis_ parameter (. . . ) of R
 inside our functions.
 
-## Details & Algorithms
+## Details and Algorithms
 
 The main function of our framework is simulate.outer() function. It simulates the input variables, which are
 standart normal random variables. The size of this simulated in determined by the given parameters, n and
@@ -120,7 +120,7 @@ passed to myq_asian() function within simulate.outer() function. Asian Option fu
 Option prices using Z matrix and return calculated prices to our main function. The main function calculates
 expected value and variance of the returning values and prints them as final output.
 
-## simulate.outer
+## simulate outer
 
 If we set simulation size to $10^7$ we already have big simulation size and it is hard to run this simulation few
 times to check if we are getting consistent results. We can compare expected values obtained from these
@@ -272,6 +272,6 @@ simulate.outer(n=1e6,d=2,auto_repetition=1000,q.outer=myq_euclidean,point=c(1,3)
 ```
 _We observe that estimated value is in the confidence interval 947 times out of 1000._
 
-## LICENCE
+## LICENSE
 
 MIT © [Onur Boyar](https://github.com/onurboyar)

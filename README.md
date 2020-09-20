@@ -9,13 +9,14 @@ VarRedOpt
 
 -   [Installation](#installation)
 -   [Example](#example)
--   [Details & Algorithms](#detalg)
--   [simulate.outer](#simouter)
--   [Antithetic Variates](#antvar)
--   [Inner Control Variates](#innercv)
--   [Outer Control Variates](#outercv)
--   [Importance Sampling](#impsamp)
--   [Adding Custom Function to VarRedOpt](#custom)
+-   [Details and Algorithms](#details-and-algorithms)
+-   [simulate outer](#simulate-outer)
+-   [Antithetic Variates](#antithetic-variates)
+-   [Inner Control Variates](#inner-control-variates)
+-   [Outer Control Variates](#outer-control-variates)
+-   [Importance Sampling](#importance-sampling)
+-   [Adding Custom Function to
+    VarRedOpt](#adding-custom-function-to-varredopt)
 -   [License](#license)
 
 The increase in computing power has been making us capable to run bigger
@@ -115,8 +116,8 @@ functions in our framework. In order to handle different parameters and
 to create a flexible framework, we are taking advantage of *ellipsis*
 parameter (. . . ) of R inside our functions.
 
-Details & Algorithms
---------------------
+Details and Algorithms
+----------------------
 
 The main function of our framework is simulate.outer() function. It
 simulates the input variables, which are standart normal random
@@ -130,7 +131,7 @@ Z matrix and return calculated prices to our main function. The main
 function calculates expected value and variance of the returning values
 and prints them as final output.
 
-simulate.outer
+simulate outer
 --------------
 
 If we set simulation size to 10<sup>7</sup> we already have big
@@ -334,7 +335,7 @@ Let’s see the output when we use auto repetition.
 *We observe that estimated value is in the confidence interval 947 times
 out of 1000.*
 
-LICENCE
+LICENSE
 -------
 
 MIT © [Onur Boyar](https://github.com/onurboyar)
