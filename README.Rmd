@@ -57,7 +57,7 @@ algorithms itself. The idea is to get desired variance reduction algorithms from
 that launches the simulation process and printing the simulation results. The launcher function is the only
 function user needs to fill with parameters. The parameters of this function are the name of the variance
 reduction algorithms to be applied, the naive simulation and parameters to feed the simulation function. The
-name of this ‘launcher’ function in our framework is _simulate.outer(. . . )._ Variance reduction algorithms are
+name of this ‘launcher’ function in our framework is _sim.outer(. . . )._ Variance reduction algorithms are
 already implemented in our framework and the user can easily take advantage of these methods by simply
 writing their function names.
 
@@ -86,24 +86,24 @@ To simulate Asian Option, we need to have
 - Sigma, yearly volatility (sigma)
 - Time (ti)
 
-To ‘launch’ a simulation process via simulate.outer function, we need to give the simulation size (n) and the dimension
+To ‘launch’ a simulation process via sim.outer function, we need to give the simulation size (n) and the dimension
 values (d).
 
 In order to get naive simulation without appling any of the variance reduction algorithms, we need just need
-to give the above parameters to simulate.outer function in the following way.
+to give the above parameters to sim.outer function in the following way.
 
 
 ```{r, message=F, warning=F}
 devtools::install_github("onurboyar/VarRedOpt")
 library(VarRedOpt)
-simulate.outer(n=1e5, d=3, q.outer = myq_asian,
+sim.outer(n=1e5, d=3, q.outer = myq_asian,
                K = 100, ti=(1:3)/12, r = 0.03, sigma = 0.3, S0 = 100)
 
 ```
 
-simulate.outer function creates a matrix with $10^5$ rows and 3 columns. Values in that matrix are drawn from 
+sim.outer function creates a matrix with $10^5$ rows and 3 columns. Values in that matrix are drawn from 
 standart normal distribution. This matrix is sent to _myq\_asian_ function as an input and Asian Call Option
-prices are simulated. The simulated values are sent back to _simulate.outer_ function to calculate estimation
+prices are simulated. The simulated values are sent back to _sim.outer_ function to calculate estimation
 and standart error values. User sees these values as the output of the simulation.
 
 There are a lot of different parameters to be used in different functions in our framework. In order to handle
@@ -112,11 +112,11 @@ inside our functions.
 
 ## Details and Algorithms
 
-The main function of our framework is simulate.outer() function. It simulates the input variables, which are
+The main function of our framework is sim.outer() function. It simulates the input variables, which are
 standart normal random variables. The size of this simulated in determined by the given parameters, n and
-d. Given these values, simulate.outer() creates Z matrix which includes standart normal random variables.
+d. Given these values, sim.outer() creates Z matrix which includes standart normal random variables.
 The Z matrix is the input of our target simulation. If we stick to our previous example, Z matrix will be
-passed to myq_asian() function within simulate.outer() function. Asian Option function will simulate Asian
+passed to myq_asian() function within sim.outer() function. Asian Option function will simulate Asian
 Option prices using Z matrix and return calculated prices to our main function. The main function calculates
 expected value and variance of the returning values and prints them as final output.
 
@@ -135,11 +135,11 @@ simple to make such analysis. All needed to be done is to set auto.repetition pa
 than 1 in the following way.
 
 ```{r, eval=FALSE}
-simulate.outer(n=1e5, d=3, auto_repetition = 100, q.outer = myq_asian, 
+sim.outer(n=1e5, d=3, auto_repetition = 100, q.outer = myq_asian, 
                K = 100, ti = (1:3)/12, r = 0.03, sigma = 0.3, S0 = 100)
 ```
 Above function will run simulation with n = 1000 auto_repetition times, which is 100.
-Another aspect need to be mentioned of the simulate.outer() function is the q.outer parameter. In the
+Another aspect need to be mentioned of the sim.outer() function is the q.outer parameter. In the
 above example it is set to function that simulates Asian Option. In order to perform variance reduction
 via the algorithms within our framework, we need to give different parameter(s) to our main function. If
 we are to add Antithetic Variates within our framework, q.outer parameter will be set to sim.AV and the
@@ -151,14 +151,14 @@ example, it must be called inside of the sim.AV function.
 ## Antithetic Variates
 
 In order to add antithetic variates to our framework and simulate asian options we need to slightly change
-the simulate.outer function given above. Antithetic Variates calls the simulation function twice by using
+the sim.outer function given above. Antithetic Variates calls the simulation function twice by using
 opposite signed inputs. The q.outer parameter of our main function will be _sim.AV_. In order to specify the
 function to be simulated we need another parameter. This parameter is named as _q.av_. It’s name includes
 av because this parameter is only needed when we are using sim.AV within our framework. We will give
 _q.av = myq\_asian_ this time. The function now becomes
 
 ```{r}
-simulate.outer(n=1e5, d=3, q.outer = sim.AV, 
+sim.outer(n=1e5, d=3, q.outer = sim.AV, 
                q.av = myq_asian, K = 100, ti = (1:3)/12, r = 0.03, sigma = 0.3, S0 = 100)
 ```
 
@@ -171,7 +171,7 @@ built-in function named _sim.InnerCV()_. In order to simulate Asian Option with 
 following function can be used.
 
 ```{r}
-simulate.outer(n=1e5, d=3, q.outer = sim.InnerCV, 
+sim.outer(n=1e5, d=3, q.outer = sim.InnerCV, 
                q.cv = myq_asian,K = 100, ti =(1:3)/12, r = 0.03, sigma = 0.3, S0 = 100)
 ```
 
@@ -186,7 +186,7 @@ In Option Pricing, we can use prices of other options as Outer Control Variates.
 As an example we can take Asian Options again. If we want to simulate Asian Option prices using Outer Control variates we can use Asian Call Option with Geometric Mean as an Outer Control Variate since it's exact solution is known. 
 
 ```{r}
-simulate.outer(n=1e5, d=3, q.outer = sim.AV, q.av = sim.GeometricAvg, 
+sim.outer(n=1e5, d=3, q.outer = sim.AV, q.av = sim.GeometricAvg, 
                q.ga = myq_asian,K = 100, ti = (1:3)/12, r = 0.03, sigma=0.3, S0=100)
 ```
 
@@ -224,14 +224,14 @@ for sis value. Nevertheless, our framework look for optimum muis value by conduc
 the function.
 
 ```{r}
-simulate.outer(1e6,d=3,q.outer=myq_asian,K=120,
+sim.outer(1e6,d=3,q.outer=myq_asian,K=120,
                ti=(1:3)/12,r=0.03,sigma=0.3,S0=100)
 ```
 
 Now, let’s add Inner Control Variates and obtain a little variance reduction.
 
 ```{r}
-simulate.outer(n=1e6,d=3,q.outer=sim.InnerCV,
+sim.outer(n=1e6,d=3,q.outer=sim.InnerCV,
                q.cv=myq_asian,K=120,ti=(1:3)/12,r=0.03,sigma=0.3,S0=100)
 ```
 
@@ -239,7 +239,7 @@ Because we set strike price to 120, simulated results are rare. We expect IS to 
 and Inner CV together. We apply IS weights after calculating simulated values in Control Variates function.
 
 ```{r}
-simulate.outer(n=1e6,d=3,q.outer=sim.InnerCV,q.cv=sim.IS,muis=1.03,sis=1,
+sim.outer(n=1e6,d=3,q.outer=sim.InnerCV,q.cv=sim.IS,muis=1.03,sis=1,
                q.is=myq_asian,K=120,ti=(1:3)/12,r=0.03,sigma=0.3,S0=100)
 ```
 
@@ -264,11 +264,11 @@ This function, _myq_euclidean_, takes two parameters. The length of the point ve
 Now, let's simulate myq using our framework.
 
 ```{r}
-simulate.outer(n=1e6,d=2,q.outer=myq_euclidean,point=c(1,3))
+sim.outer(n=1e6,d=2,q.outer=myq_euclidean,point=c(1,3))
 ```
 Let's see the output when we use auto repetition.
 ```{r}
-simulate.outer(n=1e6,d=2,auto_repetition=1000,q.outer=myq_euclidean,point=c(1,3))
+sim.outer(n=1e6,d=2,auto_repetition=1000,q.outer=myq_euclidean,point=c(1,3))
 ```
 _We observe that estimated value is in the confidence interval 947 times out of 1000._
 
