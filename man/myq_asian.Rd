@@ -7,6 +7,8 @@
 myq_asian(zm, K = 100, ti = (1:3)/12, r = 0.05, sigma = 0.1, S0 = 100)
 }
 \arguments{
+\item{zm}{Input matrix with n row and d dimension.}
+
 \item{K}{Strike price.}
 
 \item{ti}{Vector of control points.}
@@ -16,10 +18,6 @@ myq_asian(zm, K = 100, ti = (1:3)/12, r = 0.05, sigma = 0.1, S0 = 100)
 \item{sigma}{Yearly volatility.}
 
 \item{S0}{Stock price at start.}
-
-\item{T}{Time to maturity.}
-
-\item{d}{Dimension of input z matrix.}
 }
 \value{
 Returns 4 elements as a list. Asian Call Option Prices, Last Price of Asian Call Option, Expected Value of Asian Call Option, Product of the prices through time
@@ -28,7 +26,6 @@ Returns 4 elements as a list. Asian Call Option Prices, Last Price of Asian Call
 Function to calculate expected value of Geometric Asian Call Option via Block Scholes formula.
 }
 \examples{
- simulate.outer(n=1e3, d=3, q.outer = sim.IS,
+ sim.outer(n=1e3, d=3, q.outer = sim.IS,
 q.is = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)
-
 }

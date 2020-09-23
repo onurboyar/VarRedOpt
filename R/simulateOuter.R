@@ -7,16 +7,15 @@
 #' @param d Simulation dimension.
 #' @param auto_repetition Applies auto_repetition of auto_repetition = TRUE.
 #' @param  q.outer Accepts the function name of the variance reduction / simulation algorithm.
+#' @param ... ellipsis parameter. different parameters can be passed depending on the problem.
 #'
 #' @return estimation mean, standart error, confidence interval metrics if auto_repetition = TRUE
 #'
-#' @examples  simulate.outer(n=1e3, d=3, q.outer = sim.AV,
+#' @examples  sim.outer(n=1e3, d=3, q.outer = sim.AV,
 #' q.av = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)
-#'
-
-
-
-simulate.outer <- function(n,d,auto_repetition=1,q.outer,...){
+#' @export sim.outer
+#' @export
+sim.outer <- function(n,d,auto_repetition=1,q.outer,...){
   # main function for the simulation framework
   # Parameters:
   # ... n -> simulation length

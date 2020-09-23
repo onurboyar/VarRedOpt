@@ -8,8 +8,10 @@
 #'
 #' @return Sum of the euclidean distance from point to set of vectors.
 #'
-#' @examples simulate.outer(n=1e3, d=3, q.outer=myq_euclidean, point=c(1,1,1))
+#' @examples sim.outer(n=1e3, d=3, q.outer=myq_euclidean, point=c(1,1,1))
 #'
+#' @export myq_euclidean
+#' @export
 
 myq_euclidean <- function(zm,point=c(1,2,1)){
   # returns Euclidean distance of iid N(0,1) vector to "point"

@@ -10,6 +10,8 @@ sim.InnerCV(zm, q.cv = myq, ...)
 \item{zm}{A matrix with dimension d and length n.}
 
 \item{q.cv}{q function that sim.InnerCV function gets target vectors to apply variance reduction.}
+
+\item{...}{ellipsis parameter. different parameters can be passed depending on the problem.}
 }
 \value{
 Updates Y value which stored in list 'results' and returns the list 'results' with updated Y value.
@@ -18,7 +20,6 @@ Updates Y value which stored in list 'results' and returns the list 'results' wi
 Given matrix input with d dimension, this function aims to reduce the variance by applying Inner Control Variates algorithm. It uses input columns and their squares as inner control variates and applies feature selection for these control variates.
 }
 \examples{
- simulate.outer(n=1e3, d=3, q.outer = sim.InnerCV,
+ sim.outer(n=1e3, d=3, q.outer = sim.InnerCV,
 q.cv = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)
-
 }

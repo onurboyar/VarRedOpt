@@ -8,12 +8,13 @@
 #' @param muis mean parameter of the importance density.
 #' @param sis standard deviation parameter of the importance density.
 #' @param q.is q function that sim.IS function gets target vectors to apply variance reduction.
-#'
+#' @param ... ellipsis parameter. different parameters can be passed depending on the problem.
 #' @return Weighted simulated values or weights and simulated values are added to input list depending on the initial input size.
 #'
-#' @examples  simulate.outer(n=1e3, d=3, q.outer = sim.IS,
+#' @examples  sim.outer(n=1e3, d=3, q.outer = sim.IS,
 #' q.is = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)
-#'
+#' @export sim.IS
+#' @export
 
 sim.IS <- function(zm, use_pilot_study=TRUE, muis=1, sis=1,q.is=myq,...){
   # calculates is density and finds weights

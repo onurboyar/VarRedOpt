@@ -20,6 +20,8 @@ BS_Asian_geom(K = 100, T, d, ti, r = 0.05, sigma = 0.1, S0 = 100, ...)
 \item{sigma}{Yearly volatility.}
 
 \item{S0}{Stock price at start.}
+
+\item{...}{ellipsis parameter. different parameters can be passed depending on the problem.}
 }
 \value{
 Expected value of Geometric Average Asian Call Option, vector of control points, interest rate and strike price as a list.
@@ -28,7 +30,5 @@ Expected value of Geometric Average Asian Call Option, vector of control points,
 Function to calculate expected value of Geometric Asian Call Option via Block Scholes formula.
 }
 \examples{
- simulate.outer(n=1e3, d=3, q.outer = sim.IS,
-q.is = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)
-
+ sim.outer(n=1e3, d=3, q.outer = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)
 }

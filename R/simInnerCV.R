@@ -5,12 +5,13 @@
 #'
 #' @param zm A matrix with dimension d and length n.
 #' @param q.cv q function that sim.InnerCV function gets target vectors to apply variance reduction.
-#'
+#' @param ... ellipsis parameter. different parameters can be passed depending on the problem.
 #' @return Updates Y value which stored in list 'results' and returns the list 'results' with updated Y value.
 #'
-#' @examples  simulate.outer(n=1e3, d=3, q.outer = sim.InnerCV,
+#' @examples  sim.outer(n=1e3, d=3, q.outer = sim.InnerCV,
 #' q.cv = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)
-#'
+#' @export sim.InnerCV
+#' @export
 
 sim.InnerCV <- function(zm, q.cv = myq,...){
   # zm ... z matrix

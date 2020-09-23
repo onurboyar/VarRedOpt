@@ -10,6 +10,8 @@ sim.AV(zm, q.av = myq, ...)
 \item{zm}{A matrix with dimension d and length n.}
 
 \item{q.av}{q function that sim.AV function gets target vectors to apply variance reduction.}
+
+\item{...}{ellipsis parameter. different parameters can be passed depending on the problem.}
 }
 \value{
 y target vector with theoretically lower variance with the same expected value as the initial y vector.
@@ -18,7 +20,6 @@ y target vector with theoretically lower variance with the same expected value a
 Given matrix input with d dimension, this function runs simulation two times using positive and negitve signed versions of the input matrix.
 }
 \examples{
- simulate.outer(n=1e3, d=3, q.outer = sim.AV,
+ sim.outer(n=1e3, d=3, q.outer = sim.AV,
 q.av = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)
-
 }
