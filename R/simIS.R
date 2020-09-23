@@ -11,7 +11,8 @@
 #'
 #' @return Weighted simulated values or weights and simulated values are added to input list depending on the initial input size.
 #'
-#' @examples  simulate.outer(zm, q.outer = sim.IS, q.is = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)
+#' @examples  simulate.outer(n=1e3, d=3, q.outer = sim.IS,
+#' q.is = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)
 #'
 
 sim.IS <- function(zm, use_pilot_study=TRUE, muis=1, sis=1,q.is=myq,...){

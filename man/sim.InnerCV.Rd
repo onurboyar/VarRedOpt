@@ -18,6 +18,7 @@ Updates Y value which stored in list 'results' and returns the list 'results' wi
 Given matrix input with d dimension, this function aims to reduce the variance by applying Inner Control Variates algorithm. It uses input columns and their squares as inner control variates and applies feature selection for these control variates.
 }
 \examples{
- simulate.outer(zm, q.outer = sim.InnerCV, q.cv = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)
+ simulate.outer(n=1e3, d=3, q.outer = sim.InnerCV,
+q.cv = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)
 
 }

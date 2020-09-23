@@ -22,6 +22,7 @@ estimation mean, standart error, confidence interval metrics if auto_repetition 
 This function creates the z matrix which is an input matrix with given dimension value, d, and given length, n. Values are generated from standart normal distribution. After creating the z matrix, this function sends this input matrix to given simulation function. After simulation steps are completed, simulate.outer function gets the final simulated values and calculates expected value and variance. For instance, if myq_asian and sim.AV functions are given in simulate.outer function as parameters, the input matrix will be sent to sim.AV function and sim.AV function will send input value to myq_asian function twice with opposite signs and gets simulation results. After collecting these results it applies Antithetic Variates algorithm and finds the final simulation value and sends it back to the simulate.outer function.
 }
 \examples{
- simulate.outer(zm, q.outer = sim.AV, q.av = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)
+ simulate.outer(n=1e3, d=3, q.outer = sim.AV,
+q.av = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)
 
 }

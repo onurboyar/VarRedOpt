@@ -13,7 +13,8 @@
 #'
 #' @return Returns 4 elements as a list. Asian Call Option Prices, Last Price of Asian Call Option, Expected Value of Asian Call Option, Product of the prices through time
 #'
-#' @examples  simulate.outer(zm, q.outer = sim.IS, q.is = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)
+#' @examples  simulate.outer(n=1e3, d=3, q.outer = sim.IS,
+#' q.is = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)
 #'
 
 myq_asian <- function(zm,K=100,ti=(1:3)/12,r=0.05,sigma=0.1,S0=100){

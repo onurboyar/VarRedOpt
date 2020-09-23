@@ -8,7 +8,8 @@
 #'
 #' @return Updates Y value which stored in list 'results' and returns the list 'results' with updated Y value.
 #'
-#' @examples  simulate.outer(zm, q.outer = sim.InnerCV, q.cv = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)
+#' @examples  simulate.outer(n=1e3, d=3, q.outer = sim.InnerCV,
+#' q.cv = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)
 #'
 
 sim.InnerCV <- function(zm, q.cv = myq,...){

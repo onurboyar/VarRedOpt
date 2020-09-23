@@ -18,6 +18,7 @@ Updates Y value which stored in list 'results' and returns the list 'results' wi
 # Applies geometric average asian call outer control varites algorithm to the simulation. Gets expected value for the control variate using BS_Asian_geom function if IS algorithm is within the framework, the length of the q.ga will be different. Checks if IS algorithm is within the framework and applies IS weight accordingly.
 }
 \examples{
- simulate.outer(zm, q.outer = sim.GeometricAvg, q.ga = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)
+ simulate.outer(n=1e3, d=3, q.outer = sim.GeometricAvg,
+q.ga = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)
 
 }

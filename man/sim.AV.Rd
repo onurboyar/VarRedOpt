@@ -18,6 +18,7 @@ y target vector with theoretically lower variance with the same expected value a
 Given matrix input with d dimension, this function runs simulation two times using positive and negitve signed versions of the input matrix.
 }
 \examples{
- simulate.outer(zm, q.outer = sim.AV, q.av = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)
+ simulate.outer(n=1e3, d=3, q.outer = sim.AV,
+q.av = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)
 
 }
