@@ -12,7 +12,7 @@ Authors@R: c(person(given = "Onur",
            email = "hormannw@boun.edu.tr")
    )
 Maintainer: The package maintainer <boyaronur@gmail.com>
-Description: VarRedOpt framework makes it easy to use variance reduction algorithms for any simulation.
+Description: In order to make it easy to use variance reduction algorithms for any simulation, VarRedOp can help you.
     We propose user friendly and easy to extend framework. Antithetic Variates, Inner Control Variates,
     Outer Control Variates and Importance Sampling algorithms are available in the framework. User can
     write its own simulation function and use the Variance Reduction techniques in this package to
