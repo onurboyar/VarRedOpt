@@ -41,10 +41,10 @@ variance value.
 
 In this library, we are sharing different VR algorithms as a framework.
 Antithetic Variates, Inner Control Variates, Outer Control Variates and
-Importance Sampling algorithms are applied and presentended as
-ready-to-use manner. Any user can run their simulations with different
-combinations of these methods and get advantage of these variance
-reduction algorithms.
+Importance Sampling algorithms are applied and presented as ready-to-use
+manner. Any user can run their simulations with different combinations
+of these methods and get advantage of these variance reduction
+algorithms.
 
 Simulation is needed to approximate the most probable behavior of the
 system or the solution of the problem at the hand. In order to do that,
@@ -59,7 +59,7 @@ launches the simulation process and printing the simulation results. The
 launcher function is the only function user needs to fill with
 parameters. The parameters of this function are the name of the variance
 reduction algorithms to be applied, the naive simulation and parameters
-to feed the simulation function. The name of this ‘launcher’ function in
+to feed the simulation function. The name of this launcher function in
 our framework is *sim.outer(. . . ).* Variance reduction algorithms are
 already implemented in our framework and the user can easily take
 advantage of these methods by simply writing their function names.
@@ -89,15 +89,15 @@ simulate an Asian Option. To simulate Asian Option, we need to have
 -   Sigma, yearly volatility (sigma)
 -   Time (ti)
 
-To ‘launch’ a simulation process via sim.outer function, we need to give
+To launch a simulation process via sim.outer function, we need to give
 the simulation size (n) and the dimension values (d).
 
-In order to get naive simulation without appling any of the variance
+In order to get naive simulation without applying any of the variance
 reduction algorithms, we need just need to give the above parameters to
 sim.outer function in the following way.
 
     devtools::install_github("onurboyar/VarRedOpt")
-    #>      checking for file ‘/private/var/folders/x0/92n0x33d1q33x2l2th2d_2yr0000gn/T/RtmpGZzmZf/remotes1aa448009e66/onurboyar-VarRedOpt-aab5c41/DESCRIPTION’ ...  ✓  checking for file ‘/private/var/folders/x0/92n0x33d1q33x2l2th2d_2yr0000gn/T/RtmpGZzmZf/remotes1aa448009e66/onurboyar-VarRedOpt-aab5c41/DESCRIPTION’
+    #>      checking for file ‘/private/var/folders/x0/92n0x33d1q33x2l2th2d_2yr0000gn/T/Rtmp8kWE35/remotes1c2b3985d359/onurboyar-VarRedOpt-b96db67/DESCRIPTION’ ...  ✓  checking for file ‘/private/var/folders/x0/92n0x33d1q33x2l2th2d_2yr0000gn/T/Rtmp8kWE35/remotes1c2b3985d359/onurboyar-VarRedOpt-b96db67/DESCRIPTION’
     #>   ─  preparing ‘VarRedOpt’:
     #>      checking DESCRIPTION meta-information ...  ✓  checking DESCRIPTION meta-information
     #>   ─  checking for LF line-endings in source and make files and shell scripts
@@ -108,14 +108,14 @@ sim.outer function in the following way.
     library(VarRedOpt)
     sim.outer(n=1e5, d=3, q.outer = myq_asian,
                    K = 100, ti=(1:3)/12, r = 0.03, sigma = 0.3, S0 = 100)
-    #>    Estimation StandartError 
+    #>    Estimation StandardError 
     #>    4.54300000    0.04283238
 
 sim.outer function creates a matrix with 10<sup>5</sup> rows and 3
-columns. Values in that matrix are drawn from standart normal
+columns. Values in that matrix are drawn from standard normal
 distribution. This matrix is sent to *myq\_asian* function as an input
 and Asian Call Option prices are simulated. The simulated values are
-sent back to *sim.outer* function to calculate estimation and standart
+sent back to *sim.outer* function to calculate estimation and standard
 error values. User sees these values as the output of the simulation.
 
 There are a lot of different parameters to be used in different
@@ -127,10 +127,10 @@ Details and Algorithms
 ----------------------
 
 The main function of our framework is sim.outer() function. It simulates
-the input variables, which are standart normal random variables. The
+the input variables, which are standard normal random variables. The
 size of this simulated in determined by the given parameters, n and
 d. Given these values, sim.outer() creates Z matrix which includes
-standart normal random variables. The Z matrix is the input of our
+standard normal random variables. The Z matrix is the input of our
 target simulation. If we stick to our previous example, Z matrix will be
 passed to myq\_asian() function within sim.outer() function. Asian
 Option function will simulate Asian Option prices using Z matrix and
@@ -192,7 +192,7 @@ now becomes
 
     sim.outer(n=1e5, d=3, q.outer = sim.AV, 
                    q.av = myq_asian, K = 100, ti = (1:3)/12, r = 0.03, sigma = 0.3, S0 = 100)
-    #>    Estimation StandartError 
+    #>    Estimation StandardError 
     #>    4.55000000    0.02285073
 
 Inner Control Variates
@@ -208,7 +208,7 @@ Inner Control Variates, the following function can be used.
 
     sim.outer(n=1e5, d=3, q.outer = sim.InnerCV, 
                    q.cv = myq_asian,K = 100, ti =(1:3)/12, r = 0.03, sigma = 0.3, S0 = 100)
-    #>    Estimation StandartError 
+    #>    Estimation StandardError 
     #>    4.53800000    0.01698056
 
 Note that we are using *q.cv* parameter this time.
@@ -235,7 +235,7 @@ solution is known.
 
     sim.outer(n=1e5, d=3, q.outer = sim.AV, q.av = sim.GeometricAvg, 
                    q.ga = myq_asian,K = 100, ti = (1:3)/12, r = 0.03, sigma=0.3, S0=100)
-    #>    Estimation StandartError 
+    #>    Estimation StandardError 
     #>  4.5400000000  0.0006227557
 
 Outer Control Variates function is the same as Inner Control Variates
@@ -269,21 +269,21 @@ distribution in Importance Sampling.
 
 In our framework, in order to apply Importance Sampling, user should
 specify two parameters. One is muis and the other is sis. muis is the
-mean value of the importance density and sis is the standart deviation
+mean value of the importance density and sis is the standard deviation
 of the importance density.
 
 If user do not want to specify muis value, use\_pilot\_study parameter
 can be used to look for an optimum muis value by using a pilot study. In
 current version, muis values in an interval \[1.01, 1.2\] is used as
 candidate values for muis values. Starting from 1.01, values are
-incremented by 0.01 until it is reached to 1.2. sis, standart deviaton
+incremented by 0.01 until it is reached to 1.2. sis, standard deviation
 of the IS density, is not recommended to be changed. We do not offer
 optimization for sis value. Nevertheless, our framework look for optimum
 muis value by conducting a pilot study inside the function.
 
     sim.outer(1e6,d=3,q.outer=myq_asian,K=120,
                    ti=(1:3)/12,r=0.03,sigma=0.3,S0=100)
-    #>    Estimation StandartError 
+    #>    Estimation StandardError 
     #>   0.255000000   0.003160006
 
 Now, let’s add Inner Control Variates and obtain a little variance
@@ -291,7 +291,7 @@ reduction.
 
     sim.outer(n=1e6,d=3,q.outer=sim.InnerCV,
                    q.cv=myq_asian,K=120,ti=(1:3)/12,r=0.03,sigma=0.3,S0=100)
-    #>    Estimation StandartError 
+    #>    Estimation StandardError 
     #>    0.25500000    0.00261813
 
 Because we set strike price to 120, simulated results are rare. We
@@ -301,7 +301,7 @@ function.
 
     sim.outer(n=1e6,d=3,q.outer=sim.InnerCV,q.cv=sim.IS,muis=1.03,sis=1,
                    q.is=myq_asian,K=120,ti=(1:3)/12,r=0.03,sigma=0.3,S0=100)
-    #>    Estimation StandartError 
+    #>    Estimation StandardError 
     #>   0.256000000   0.000614824
 
 Adding Custom Function to VarRedOpt
@@ -330,13 +330,13 @@ returning value type have to be list.
 Now, let’s simulate myq using our framework.
 
     sim.outer(n=1e6,d=2,q.outer=myq_euclidean,point=c(1,3))
-    #>    Estimation StandartError 
+    #>    Estimation StandardError 
     #>  1.8020000000  0.0005443944
 
 Let’s see the output when we use auto repetition.
 
     sim.outer(n=1e6,d=2,auto_repetition=1000,q.outer=myq_euclidean,point=c(1,3))
-    #>              Estimation           StandartError ConfidenceIntervalRatio 
+    #>              Estimation           StandardError ConfidenceIntervalRatio 
     #>            1.8020000000            0.0005443944            0.9470000000
 
 *We observe that estimated value is in the confidence interval 947 times

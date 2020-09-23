@@ -44,7 +44,7 @@ uses simulations as an input and returns another simulation with almost the same
 variance value.
 
 In this library, we are sharing different VR algorithms as a framework. Antithetic Variates, Inner Control
-Variates, Outer Control Variates and Importance Sampling algorithms are applied and presentended as
+Variates, Outer Control Variates and Importance Sampling algorithms are applied and presented as
 ready-to-use manner. Any user can run their simulations with different combinations of these methods and
 get advantage of these variance reduction algorithms.
 
@@ -57,7 +57,7 @@ algorithms itself. The idea is to get desired variance reduction algorithms from
 that launches the simulation process and printing the simulation results. The launcher function is the only
 function user needs to fill with parameters. The parameters of this function are the name of the variance
 reduction algorithms to be applied, the naive simulation and parameters to feed the simulation function. The
-name of this ‘launcher’ function in our framework is _sim.outer(. . . )._ Variance reduction algorithms are
+name of this launcher function in our framework is _sim.outer(. . . )._ Variance reduction algorithms are
 already implemented in our framework and the user can easily take advantage of these methods by simply
 writing their function names.
 
@@ -86,10 +86,10 @@ To simulate Asian Option, we need to have
 - Sigma, yearly volatility (sigma)
 - Time (ti)
 
-To ‘launch’ a simulation process via sim.outer function, we need to give the simulation size (n) and the dimension
+To launch a simulation process via sim.outer function, we need to give the simulation size (n) and the dimension
 values (d).
 
-In order to get naive simulation without appling any of the variance reduction algorithms, we need just need
+In order to get naive simulation without applying any of the variance reduction algorithms, we need just need
 to give the above parameters to sim.outer function in the following way.
 
 
@@ -102,9 +102,9 @@ sim.outer(n=1e5, d=3, q.outer = myq_asian,
 ```
 
 sim.outer function creates a matrix with $10^5$ rows and 3 columns. Values in that matrix are drawn from 
-standart normal distribution. This matrix is sent to _myq\_asian_ function as an input and Asian Call Option
+standard normal distribution. This matrix is sent to _myq\_asian_ function as an input and Asian Call Option
 prices are simulated. The simulated values are sent back to _sim.outer_ function to calculate estimation
-and standart error values. User sees these values as the output of the simulation.
+and standard error values. User sees these values as the output of the simulation.
 
 There are a lot of different parameters to be used in different functions in our framework. In order to handle
 different parameters and to create a flexible framework, we are taking advantage of _ellipsis_ parameter (. . . ) of R
@@ -113,8 +113,8 @@ inside our functions.
 ## Details and Algorithms
 
 The main function of our framework is sim.outer() function. It simulates the input variables, which are
-standart normal random variables. The size of this simulated in determined by the given parameters, n and
-d. Given these values, sim.outer() creates Z matrix which includes standart normal random variables.
+standard normal random variables. The size of this simulated in determined by the given parameters, n and
+d. Given these values, sim.outer() creates Z matrix which includes standard normal random variables.
 The Z matrix is the input of our target simulation. If we stick to our previous example, Z matrix will be
 passed to myq_asian() function within sim.outer() function. Asian Option function will simulate Asian
 Option prices using Z matrix and return calculated prices to our main function. The main function calculates
@@ -213,13 +213,13 @@ To be able to sample from tails, we sample from the different distribution and f
 from the correct distribution in Importance Sampling.
 
 In our framework, in order to apply Importance Sampling, user should specify two parameters. One is muis
-and the other is sis. muis is the mean value of the importance density and sis is the standart deviation of
+and the other is sis. muis is the mean value of the importance density and sis is the standard deviation of
 the importance density.
 
 If user do not want to specify muis value, use_pilot_study parameter can be used to look for an optimum
 muis value by using a pilot study. In current version, muis values in an interval [1.01, 1.2] is used as candidate
 values for muis values. Starting from 1.01, values are incremented by 0.01 until it is reached to 1.2.
-sis, standart deviaton of the IS density, is not recommended to be changed. We do not offer optimization
+sis, standard deviation of the IS density, is not recommended to be changed. We do not offer optimization
 for sis value. Nevertheless, our framework look for optimum muis value by conducting a pilot study inside
 the function.
 
