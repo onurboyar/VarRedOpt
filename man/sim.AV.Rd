@@ -17,7 +17,7 @@ sim.AV(zm, q.av = myq, ...)
 y target vector with theoretically lower variance with the same expected value as the initial y vector.
 }
 \description{
-Given matrix input with d dimension, this function runs simulation two times using positive and negitve signed versions of the input matrix.
+Given matrix input with d dimension, this function runs simulation two times using positive and negative signed versions of the input matrix.
 }
 \examples{
  sim.outer(n=1e3, d=3, q.outer = sim.AV,

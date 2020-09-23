@@ -18,10 +18,10 @@ sim.outer(n, d, auto_repetition = 1, q.outer, ...)
 \item{...}{ellipsis parameter. different parameters can be passed depending on the problem.}
 }
 \value{
-estimation mean, standart error, confidence interval metrics if auto_repetition = TRUE
+estimation mean, standard error, confidence interval metrics if auto_repetition = TRUE
 }
 \description{
-This function creates the z matrix which is an input matrix with given dimension value, d, and given length, n. Values are generated from standart normal distribution. After creating the z matrix, this function sends this input matrix to given simulation function. After simulation steps are completed, simulate.outer function gets the final simulated values and calculates expected value and variance. For instance, if myq_asian and sim.AV functions are given in simulate.outer function as parameters, the input matrix will be sent to sim.AV function and sim.AV function will send input value to myq_asian function twice with opposite signs and gets simulation results. After collecting these results it applies Antithetic Variates algorithm and finds the final simulation value and sends it back to the simulate.outer function.
+This function creates the z matrix which is an input matrix with given dimension value, d, and given length, n. Values are generated from standard normal distribution. After creating the z matrix, this function sends this input matrix to given simulation function. After simulation steps are completed, simulate.outer function gets the final simulated values and calculates expected value and variance. For instance, if myq_asian and sim.AV functions are given in simulate.outer function as parameters, the input matrix will be sent to sim.AV function and sim.AV function will send input value to myq_asian function twice with opposite signs and gets simulation results. After collecting these results it applies Antithetic Variates algorithm and finds the final simulation value and sends it back to the simulate.outer function.
 }
 \examples{
  sim.outer(n=1e3, d=3, q.outer = sim.AV,

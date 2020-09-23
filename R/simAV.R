@@ -1,6 +1,6 @@
 #' @title Function to apply Antithetic Variates Algorithm.
 #'
-#' @description Given matrix input with d dimension, this function runs simulation two times using positive and negitve signed versions of the input matrix.
+#' @description Given matrix input with d dimension, this function runs simulation two times using positive and negative signed versions of the input matrix.
 #
 #'
 #' @param zm A matrix with dimension d and length n.
