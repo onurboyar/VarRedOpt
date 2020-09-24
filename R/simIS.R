@@ -16,7 +16,7 @@
 #' @export sim.IS
 #' @export
 
-sim.IS <- function(zm, use_pilot_study=TRUE, muis=1, sis=1,q.is=myq,...){
+sim.IS <- function(zm, use_pilot_study=TRUE, muis=1, sis=1,q.is,...){
   # calculates is density and finds weights
   # returns calculated weights in a list
 

@@ -28,19 +28,19 @@ knitr::opts_chunk$set(
 - [Adding Custom Function to VarRedOpt](#adding-custom-function-to-varredopt)
 - [License](#license)
 
-The increase in computing power has been making us capable to run bigger simulations. We can choose
+The increase in computing power has made us capable to run bigger simulations. We can choose
 bigger sample sizes with bigger dimensions. Nevertheless, this phenomenon does not make the need for an
 efficient simulation disappear. We still have to choose the most efficient way to make our simulations in
-order to get more robust results with the computing power at hand.
+order to get the most robust results with the computing power at the hand.
 
-The reliability of the simulation lies is the variance of the simulation. As the simulation size increase,
+The reliability of the simulation lies in the variance of the simulation. As the simulation size increase,
 variance is expected to be decreased. We can increase simulation size to the point but after a certain point
 the simulation time will be infeasible to get results. This problem reveals the need for a different approach.
 We need a set of tools to get more robust simulation results with the same simulation size. This is where
-variance reduction (VR) algorithm comes to our help.
+variance reduction (VR) algorithms come to our help.
 
 A Variance Reduction Algorithm is an algorithm that behaves like the simulation itself. These algorithms
-uses simulations as an input and returns another simulation with almost the same expected value and less
+uses simulations as an input and returns another simulation with approximately the same expected value and less
 variance value.
 
 In this library, we are sharing different VR algorithms as a framework. Antithetic Variates, Inner Control
@@ -53,10 +53,10 @@ at the hand. In order to do that, we use different simulation techniques. These 
 variables as input and attempt to approximate the solution of the our problem.
 
 Our variance reduction framework makes it easier to conduct experiments without writing variance reduction
-algorithms itself. The idea is to get desired variance reduction algorithms from the user via a function
-that launches the simulation process and printing the simulation results. The launcher function is the only
+algorithms. The idea is to get desired variance reduction algorithms from the user via a function
+that launches the simulation process and prints the simulation results. The launcher function is the only
 function user needs to fill with parameters. The parameters of this function are the name of the variance
-reduction algorithms to be applied, the naive simulation and parameters to feed the simulation function. The
+reduction algorithms to be applied, the naive simulation and parameters to be passed on the simulation function. The
 name of this launcher function in our framework is _sim.outer(. . . )._ Variance reduction algorithms are
 already implemented in our framework and the user can easily take advantage of these methods by simply
 writing their function names.
@@ -77,8 +77,8 @@ devtools::install_github("onurboyar/VarRedOpt")
 ```
 ## Example
 
-To make things more concrete, let’s specify the parameters needed to simulate an Asian Option.
-To simulate Asian Option, we need to have
+To make things more concrete, let’s specify the parameters needed to simulate an Asian Call Option.
+To simulate an Asian Call Option, we need to have
 
 - Strike price (K)
 - Interest rate (riskfree rate) (r)

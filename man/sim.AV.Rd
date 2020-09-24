@@ -4,7 +4,7 @@
 \alias{sim.AV}
 \title{Function to apply Antithetic Variates Algorithm.}
 \usage{
-sim.AV(zm, q.av = myq, ...)
+sim.AV(zm, q.av, ...)
 }
 \arguments{
 \item{zm}{A matrix with dimension d and length n.}

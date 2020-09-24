@@ -4,7 +4,7 @@
 \alias{sim.InnerCV}
 \title{Function to apply Inner Control Variates Algorithm.}
 \usage{
-sim.InnerCV(zm, q.cv = myq, ...)
+sim.InnerCV(zm, q.cv, ...)
 }
 \arguments{
 \item{zm}{A matrix with dimension d and length n.}

@@ -14,7 +14,7 @@
 #' @export
 
 
-sim.AV <- function(zm, q.av = myq, ...){
+sim.AV <- function(zm, q.av, ...){
   # Applies antithetic variates
   # q.av is expected to return a list.
   # q.av might include multiple elements, the first one

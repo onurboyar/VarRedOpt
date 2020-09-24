@@ -4,7 +4,7 @@
 \alias{sim.IS}
 \title{Function to apply Importance Sampling Algorithm.}
 \usage{
-sim.IS(zm, use_pilot_study = TRUE, muis = 1, sis = 1, q.is = myq, ...)
+sim.IS(zm, use_pilot_study = TRUE, muis = 1, sis = 1, q.is, ...)
 }
 \arguments{
 \item{zm}{A matrix with dimension d and length n.}

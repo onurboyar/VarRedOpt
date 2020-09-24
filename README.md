@@ -19,25 +19,25 @@ VarRedOpt
     VarRedOpt](#adding-custom-function-to-varredopt)
 -   [License](#license)
 
-The increase in computing power has been making us capable to run bigger
+The increase in computing power has made us capable to run bigger
 simulations. We can choose bigger sample sizes with bigger dimensions.
 Nevertheless, this phenomenon does not make the need for an efficient
 simulation disappear. We still have to choose the most efficient way to
-make our simulations in order to get more robust results with the
-computing power at hand.
+make our simulations in order to get the most robust results with the
+computing power at the hand.
 
-The reliability of the simulation lies is the variance of the
+The reliability of the simulation lies in the variance of the
 simulation. As the simulation size increase, variance is expected to be
 decreased. We can increase simulation size to the point but after a
 certain point the simulation time will be infeasible to get results.
 This problem reveals the need for a different approach. We need a set of
 tools to get more robust simulation results with the same simulation
-size. This is where variance reduction (VR) algorithm comes to our help.
+size. This is where variance reduction (VR) algorithms come to our help.
 
 A Variance Reduction Algorithm is an algorithm that behaves like the
 simulation itself. These algorithms uses simulations as an input and
-returns another simulation with almost the same expected value and less
-variance value.
+returns another simulation with approximately the same expected value
+and less variance value.
 
 In this library, we are sharing different VR algorithms as a framework.
 Antithetic Variates, Inner Control Variates, Outer Control Variates and
@@ -53,16 +53,17 @@ variables as input and attempt to approximate the solution of the our
 problem.
 
 Our variance reduction framework makes it easier to conduct experiments
-without writing variance reduction algorithms itself. The idea is to get
+without writing variance reduction algorithms. The idea is to get
 desired variance reduction algorithms from the user via a function that
-launches the simulation process and printing the simulation results. The
+launches the simulation process and prints the simulation results. The
 launcher function is the only function user needs to fill with
 parameters. The parameters of this function are the name of the variance
 reduction algorithms to be applied, the naive simulation and parameters
-to feed the simulation function. The name of this launcher function in
-our framework is *sim.outer(. . . ).* Variance reduction algorithms are
-already implemented in our framework and the user can easily take
-advantage of these methods by simply writing their function names.
+to be passed on the simulation function. The name of this launcher
+function in our framework is *sim.outer(. . . ).* Variance reduction
+algorithms are already implemented in our framework and the user can
+easily take advantage of these methods by simply writing their function
+names.
 
 Installation
 ------------
@@ -81,7 +82,8 @@ Example
 -------
 
 To make things more concrete, let’s specify the parameters needed to
-simulate an Asian Option. To simulate Asian Option, we need to have
+simulate an Asian Call Option. To simulate an Asian Call Option, we need
+to have
 
 -   Strike price (K)
 -   Interest rate (riskfree rate) (r)
@@ -97,14 +99,6 @@ reduction algorithms, we need just need to give the above parameters to
 sim.outer function in the following way.
 
     devtools::install_github("onurboyar/VarRedOpt")
-    #>      checking for file ‘/private/var/folders/x0/92n0x33d1q33x2l2th2d_2yr0000gn/T/Rtmp8kWE35/remotes1c2b3985d359/onurboyar-VarRedOpt-b96db67/DESCRIPTION’ ...  ✓  checking for file ‘/private/var/folders/x0/92n0x33d1q33x2l2th2d_2yr0000gn/T/Rtmp8kWE35/remotes1c2b3985d359/onurboyar-VarRedOpt-b96db67/DESCRIPTION’
-    #>   ─  preparing ‘VarRedOpt’:
-    #>      checking DESCRIPTION meta-information ...  ✓  checking DESCRIPTION meta-information
-    #>   ─  checking for LF line-endings in source and make files and shell scripts
-    #>   ─  checking for empty or unneeded directories
-    #>   ─  building ‘VarRedOpt_0.1.0.tar.gz’
-    #>      
-    #> 
     library(VarRedOpt)
     sim.outer(n=1e5, d=3, q.outer = myq_asian,
                    K = 100, ti=(1:3)/12, r = 0.03, sigma = 0.3, S0 = 100)

@@ -13,7 +13,7 @@
 #' @export sim.InnerCV
 #' @export
 
-sim.InnerCV <- function(zm, q.cv = myq,...){
+sim.InnerCV <- function(zm, q.cv,...){
   # zm ... z matrix
   # Y ... estimated results of the simulation.
   # this function takes zm and Y as an input and

@@ -14,7 +14,7 @@
 #' @export
 
 
-sim.GeometricAvg <- function(zm, q.ga=myq,...){
+sim.GeometricAvg <- function(zm, q.ga,...){
   # applies geometric average asian call outer control varite to the simulation.
   # gets expected value for the control variate using BS_Asian_geom function
   # if IS algorithm is within the framework, the length of the q.ga will be different.

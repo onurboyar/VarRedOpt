@@ -4,7 +4,7 @@
 \alias{sim.GeometricAvg}
 \title{An Outer Control Variate function for Asian Call Option.}
 \usage{
-sim.GeometricAvg(zm, q.ga = myq, ...)
+sim.GeometricAvg(zm, q.ga, ...)
 }
 \arguments{
 \item{zm}{A matrix with dimension d and length n.}
