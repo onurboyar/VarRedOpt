@@ -69,7 +69,7 @@ Installation
 ------------
 
 You can install the released version of VarRedOpt from
-[CRAN](https://CRAN.R-project.org) with:
+[CRAN](https://CRAN.R-project.org) with (currently not available on CRAN):
 
     install.packages("VarRedOpt")
 
