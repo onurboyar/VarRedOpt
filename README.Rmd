@@ -274,4 +274,4 @@ _We observe that estimated value is in the confidence interval 947 times out of 
 
 ## LICENSE
 
-MIT © [Onur Boyar](https://github.com/onurboyar)
+MIT © [Wolfgang Hörmann, Onur Boyar](https://github.com/onurboyar)

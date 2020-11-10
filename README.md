@@ -69,7 +69,7 @@ Installation
 ------------
 
 You can install the released version of VarRedOpt from
-[CRAN](https://CRAN.R-project.org) with (currently not available on CRAN):
+[CRAN](https://CRAN.R-project.org) with:
 
     install.packages("VarRedOpt")
 
@@ -99,6 +99,14 @@ reduction algorithms, we need just need to give the above parameters to
 sim.outer function in the following way.
 
     devtools::install_github("onurboyar/VarRedOpt")
+    #>      checking for file ‘/private/var/folders/x0/92n0x33d1q33x2l2th2d_2yr0000gn/T/RtmpuTmCH8/remotes8d5937a4381e/onurboyar-VarRedOpt-d9b29a0/DESCRIPTION’ ...  ✓  checking for file ‘/private/var/folders/x0/92n0x33d1q33x2l2th2d_2yr0000gn/T/RtmpuTmCH8/remotes8d5937a4381e/onurboyar-VarRedOpt-d9b29a0/DESCRIPTION’
+    #>   ─  preparing ‘VarRedOpt’:
+    #>      checking DESCRIPTION meta-information ...  ✓  checking DESCRIPTION meta-information
+    #>   ─  checking for LF line-endings in source and make files and shell scripts
+    #>   ─  checking for empty or unneeded directories
+    #>   ─  building ‘VarRedOpt_0.1.0.tar.gz’
+    #>      
+    #> 
     library(VarRedOpt)
     sim.outer(n=1e5, d=3, q.outer = myq_asian,
                    K = 100, ti=(1:3)/12, r = 0.03, sigma = 0.3, S0 = 100)
@@ -339,4 +347,4 @@ out of 1000.*
 LICENSE
 -------
 
-MIT © [Onur Boyar](https://github.com/onurboyar)
+MIT © [Wolfgang Hörmann, Onur Boyar](https://github.com/onurboyar)
