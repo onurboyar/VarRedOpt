@@ -19,6 +19,7 @@
 #' @examples  sim.outer(n=1e3, d=3, q.outer = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)
 #' @export BS_Asian_geom
 #' @export
+#' @importFrom stats dnorm lm pnorm rnorm var
 
 BS_Asian_geom <-function(K=100,T,d,ti,r=0.05,sigma=0.1,S0=100,...){
   # Black-Scholes formula for Asian option with geometric average
