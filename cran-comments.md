@@ -1,13 +1,13 @@
 ## R CMD check results
 
-0 ERRORs | 0 WARNINGs | 2 NOTES.
+0 ERRORs | 0 WARNINGs | 0 NOTES.
 
 ## Resubmission
 This is a resubmission. In this version I have:
 
-* Fixed the maintainer note message in DESCRIPTION file.
+* Added required importFrom lines to NAMESPACE
 
-* Fixed no visible binding for global variable NOTE.
+* Added cran-comments into .Rbuildignore file.
 
 
 
