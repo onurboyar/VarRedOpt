@@ -21,7 +21,7 @@
 #' @export
 #' @importFrom stats dnorm lm pnorm rnorm var
 
-BS_Asian_geom <-function(K=100,T,d,ti,r=0.05,sigma=0.1,S0=100,...){
+BS_Asian_geom <-function(K=100,TimeToMat,d,ti,r=0.05,sigma=0.1,S0=100,...){
   # Black-Scholes formula for Asian option with geometric average
   # ti ... vector of control points, the last entry is the maturity T
   # Returns:
