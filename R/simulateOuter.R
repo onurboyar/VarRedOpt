@@ -41,7 +41,6 @@ sim.outer <- function(n,d,auto_repetition=1,q.outer,...){
   # if auto_repetition != 1, run simulation auto_repetition times with n=1000
   # set confidence intervals and count how many of them include mean_y_sim
   if(auto_repetition!=1){
-    set.seed(2)
     n=1000
     repetitions=auto_repetition
     y_vector = c()
