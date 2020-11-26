@@ -4,12 +4,13 @@
 \alias{BS_Asian_geom}
 \title{Block Scholes for Geometric Asian Call Option}
 \usage{
-BS_Asian_geom(K = 100, T, d, ti, r = 0.05, sigma = 0.1, S0 = 100, ...)
+BS_Asian_geom(K = 100, TimeToMat, d, ti, r = 0.05, sigma = 0.1,
+  S0 = 100, ...)
 }
 \arguments{
 \item{K}{Strike price.}
 
-\item{T}{Time to maturity.}
+\item{TimeToMat}{Time to maturity.}
 
 \item{d}{Dimension of input z matrix.}
 

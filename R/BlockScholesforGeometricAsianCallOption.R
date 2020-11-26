@@ -6,7 +6,7 @@
 #'
 #'
 #' @param K Strike price.
-#' @param T Time to maturity.
+#' @param TimeToMat Time to maturity.
 #' @param d Dimension of input z matrix.
 #' @param ti Vector of control points.
 #' @param r Riskfree rate
@@ -23,7 +23,7 @@
 
 BS_Asian_geom <-function(K=100,TimeToMat,d,ti,r=0.05,sigma=0.1,S0=100,...){
   # Black-Scholes formula for Asian option with geometric average
-  # ti ... vector of control points, the last entry is the maturity T
+  # ti ... vector of control points, the last entry is the time to maturity
   # Returns:
   # ... calculated price as y_geometric
   # ... ti value
