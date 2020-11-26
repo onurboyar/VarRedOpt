@@ -27,8 +27,6 @@ sim.outer <- function(n,d,auto_repetition=1,q.outer,...){
   # ... standard error
   # ... confidence interval metrics if auto_repetition = TRUE
 
-  set.seed(1)
-
   zm <- matrix(rnorm(n*d),ncol=d)
 
   # send z.matrix to given simulation function and use only y values
