@@ -5,9 +5,11 @@
 ## Resubmission
 This is a resubmission. In this version I have:
 
-* Added required importFrom lines to NAMESPACE
+* Added citation to DESCRIPTION
 
-* Added cran-comments into .Rbuildignore file.
+* Removed set.seed() from sim.outer function
+
+* Renamed variable with the name 'T'
 
 
 
