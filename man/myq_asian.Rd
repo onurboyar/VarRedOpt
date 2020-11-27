@@ -4,8 +4,7 @@
 \alias{myq_asian}
 \title{Block Scholes for Geometric Asian Call Option}
 \usage{
-myq_asian(zm, K = 100, ti = (1:3)/12, r = 0.05, sigma = 0.1,
-  S0 = 100)
+myq_asian(zm, K = 100, ti = (1:3)/12, r = 0.05, sigma = 0.1, S0 = 100)
 }
 \arguments{
 \item{zm}{Input matrix with n row and d dimension.}

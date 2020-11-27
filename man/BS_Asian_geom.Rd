@@ -4,8 +4,7 @@
 \alias{BS_Asian_geom}
 \title{Block Scholes for Geometric Asian Call Option}
 \usage{
-BS_Asian_geom(K = 100, TimeToMat, d, ti, r = 0.05, sigma = 0.1,
-  S0 = 100, ...)
+BS_Asian_geom(K = 100, TimeToMat, d, ti, r = 0.05, sigma = 0.1, S0 = 100, ...)
 }
 \arguments{
 \item{K}{Strike price.}
