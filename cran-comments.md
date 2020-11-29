@@ -5,7 +5,7 @@
 ## Resubmission
 This is a resubmission. In this version I have:
 
-* Corrected citation info in the description
+* Added dot at the end of the last sentence in the description file.
 
 
 
