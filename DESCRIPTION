@@ -16,7 +16,7 @@ Description: In order to make it easy to use variance reduction algorithms for a
     Outer Control Variates and Importance Sampling algorithms are available in the framework. User can
     write its own simulation function and use the Variance Reduction techniques in this package to
     obtain more efficient simulations. An implementation of Asian Option simulation is already 
-    available within the package. See Kemal Dinçer Dingeç & Wolfgang Hörmann (2012) <doi:10.1016/j.ejor.2012.03.046>
+    available within the package. See Kemal Dinçer Dingeç & Wolfgang Hörmann (2012) <doi:10.1016/j.ejor.2012.03.046>.
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
