@@ -33,7 +33,6 @@ sim.IS <- function(zm, use_pilot_study=TRUE, muis=1, sis=1,q.is,...){
     best_std_error = Inf
     best_muis_value = 1
     for(muis in muis_candidates){
-      set.seed(1)
       n_pilot=1e4
       zm_pilot <- matrix(rnorm(n_pilot*d, muis, sis),nrow=n_pilot,ncol=d)
       results <- q.is(zm_pilot,...)
@@ -52,7 +51,6 @@ sim.IS <- function(zm, use_pilot_study=TRUE, muis=1, sis=1,q.is,...){
     }
     ##### pilot study ends
   }
-  set.seed(1)
   zm <- matrix(rnorm(n*d, best_muis_value, sis),nrow=n,ncol=d)
   results <- q.is(zm,...)
   ###
