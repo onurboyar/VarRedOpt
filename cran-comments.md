@@ -5,7 +5,8 @@
 ## Resubmission
 This is a resubmission. In this version I have:
 
-* Added dot at the end of the last sentence in the description file.
+* Added new examples to .Rd files.
+* Removed set.seed from sim.IS.R file.
 
 
 
