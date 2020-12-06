@@ -10,6 +10,10 @@
 #'
 #' @examples  sim.outer(n=1e3, d=3, q.outer = sim.AV,
 #' q.av = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)
+#'
+#' sim.outer(n=1e3, d=3, q.outer = sim.AV, q.av = sim.InnerCV,
+#' q.cv = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)
+#'
 #' @export sim.AV
 #' @export
 

@@ -10,6 +10,10 @@
 #'
 #' @examples  sim.outer(n=1e3, d=3, q.outer = sim.GeometricAvg,
 #' q.ga = myq_asian, K=100, ti=(1:3/12), r=0.03, sigma=0.3, S0=100)
+#'
+#' sim.outer(n=1e3, d=1, q.outer = sim.AV, q.av = sim.GeometricAvg,
+#' q.ga = myq_asian, K=90, ti=(1:1/12), r=0.03, sigma=0.3, S0=100)
+#'
 #' @export sim.GeometricAvg
 #' @export
 
